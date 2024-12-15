@@ -45,3 +45,28 @@ void	get_numbers(char *av, t_stack **stack_a)
 	}
 	free(param);
 }
+
+int	main(int ac, char **av)
+{
+	t_stack *stack_a;
+	t_stack *stack_b;
+	int	stack_size;
+	int i;
+
+	i = 1;
+	stack_a = NULL;
+	stack_b = NULL;
+	while (i < ac)
+	{
+		get_numbers(av[i], &stack_a);
+		i++;
+	}
+	if (is_duplicate(stack_a))
+		error_exit(&stack_a, NULL);
+	stack_size = get_stack_size(stack_a);
+	get_index(stack_a, stack_size + 1);
+	pusk_swap(&stack_a, &stack_b, stack_size);
+	free_stack(&stack_a);
+	free_stack(&stack_b);
+	return(0);
+}
