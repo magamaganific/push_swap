@@ -23,9 +23,9 @@ static void	push_swap(t_stack **stack_a, t_stack **stack_b, int stack_size)
 
 void	get_numbers(char *av, t_stack **stack_a)
 {
-	char	**param;
 	long int	n;
-	int	i;
+	char		**param;
+	int			i;
 
 	param = ft_split (av, ' ');
 	i = 0;
@@ -48,10 +48,10 @@ void	get_numbers(char *av, t_stack **stack_a)
 
 int	main(int ac, char **av)
 {
-	t_stack *stack_a;
-	t_stack *stack_b;
-	int	stack_size;
-	int i;
+	t_stack	*stack_a;
+	t_stack	*stack_b;
+	int		stack_size;
+	int		i;
 
 	i = 1;
 	stack_a = NULL;
@@ -68,5 +68,5 @@ int	main(int ac, char **av)
 	pusk_swap(&stack_a, &stack_b, stack_size);
 	free_stack(&stack_a);
 	free_stack(&stack_b);
-	return(0);
+	return (0);
 }

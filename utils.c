@@ -28,8 +28,8 @@ void	error_exit(t_stack **stack_a, t_stack **stack_b)
 long int	ft_atoi(const char *str)
 {
 	long int	nb;
-	int	isneg;
-	int i;
+	int			isneg;
+	int 		i;
 
 	nb = 0;
 	isneg = 1;
@@ -61,7 +61,7 @@ void	ft_putstr(char *str)
 	}
 }
 
-int	abs (int nb)
+int	abs(int nb)
 {
 	if (nb < 0)
 		return (nb * -1);

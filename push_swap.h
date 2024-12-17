@@ -9,13 +9,13 @@
 
 typedef struct s_stack
 {
-    int	value;
-	int	index;
-	int	pos;
-	int	target;
-	int	cost_a;
-	int	cost_b;
 	struct s_stack	*next;
+	int				value;
+	int				index;
+	int				pos;
+	int				target;
+	int				cost_a;
+	int				cost_b;
 }	t_stack;
 
 long	input_is_correct(char *av);
@@ -26,8 +26,8 @@ void	get_index(t_stack *stack_a, int stack_size);
 t_stack	*stack_new(int value);
 void	add_back(t_stack **stack, t_stack *new);
 t_stack	*get_bottom(t_stack *stack);
-int	get_stack_size(t_stack *stack);
-int	is_sorted(t_stack *stack);
+int		get_stack_size(t_stack *stack);
+int		is_sorted(t_stack *stack);
 void	sort_three(t_stack **stack);
 void	do_sa(t_stack **stack_a);
 void	do_sb(t_stacl **stack_b);
@@ -46,12 +46,12 @@ void	sort(t_stack **stack_a, t_stack **stack_b);
 void	get_target_position(t_stack **stack_a, t_stack **stack_b);
 void	cost(t_stack **stack_a, t_stack **stack_b);
 void	cheapest_move(t_stack **stack_a, t_stack **stack_b);
-int	abs(int nb);
-void	do_move(t_stack **stack_a, t_stack **stack_b)
-int	position_lowest_index(t_stack **stack);
+int		abs(int nb);
+void	do_move(t_stack **stack_a, t_stack **stack_b);
+int		position_lowest_index(t_stack **stack);
 char	**ft_split(char const *s, int c);
 void	get_numbers(char *av, t_stack **stack_a);
-int	is_duplicate(t_stack *column);
+int		is_duplicate(t_stack *column);
 size_t	ft_strlen(const char *s);
 
 #endif

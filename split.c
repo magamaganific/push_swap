@@ -44,8 +44,8 @@ static char	*word_dup(const char *str, int start, int finish)
 
 static char	*ft_cpy(size_t i, char const *s, char c, char **split)
 {
-	int	index;
 	size_t	j;
+	int		index;
 
 	index = -1;
 	j = 0;
@@ -66,7 +66,7 @@ static char	*ft_cpy(size_t i, char const *s, char c, char **split)
 
 char	**ft_split(char const *s, char c)
 {
-	size_t i;
+	size_t	i;
 	char	**split;
 
 	if (!s)

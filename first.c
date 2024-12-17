@@ -13,13 +13,12 @@ long	input_is_correct(char *str)
 			return (0);
 		i++;
 	}
-	
 }
 
 int	is_duplicate(t_stack *column)
 {
-	t_stack *tmp;
-	t_stack *tmp2;
+	t_stack	*tmp;
+	t_stack	*tmp2;
 
 	tmp = column;
 	while (tmp)
@@ -27,9 +26,9 @@ int	is_duplicate(t_stack *column)
 		tmp2 = tmp->next;
 		while (tmp2)
 		{
-			if (tmp->value == tmp2->value);
+			if (tmp->value == tmp2->value)
 				return (1);
-				tmp2 = tmp2->next;
+			tmp2 = tmp2->next;
 		}
 		tmp = tmp->next;
 	}
@@ -38,9 +37,9 @@ int	is_duplicate(t_stack *column)
 
 void	get_index(t_stack *stack_a, int *stack_size)
 {
-	t_stack *ptr;
+	t_stack	*ptr;
 	t_stack	*biggest;
-	int	value;
+	int		value;
 
 	while (--stack_size > 0)
 	{

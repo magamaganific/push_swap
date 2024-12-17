@@ -1,12 +1,12 @@
 #include "push_swap.h"
 
-t_stack *stack_new(int value)
+t_stack	*stack_new(int value)
 {
-	t_stack *new;
-	
+	t_stack	*new;
+
 	new = malloc(sizeof(t_stack));
-	if(!new)
-		return(NULL);
+	if (!new)
+		return (NULL);
 	new->value = value;
 	new->index = 0;
 	new->pos = -1;
@@ -19,7 +19,7 @@ t_stack *stack_new(int value)
 
 void	stack_add(t_stack **stack, t_stack *new)
 {
-	t_stack *bottom;
+	t_stack	*bottom;
 
 	if (!new)
 		return ;
@@ -32,26 +32,26 @@ void	stack_add(t_stack **stack, t_stack *new)
 	bottom->next = new;
 }
 
-t_stack *get_bottom(t_stack *stack)
+t_stack	*get_bottom(t_stack *stack)
 {
 	while (stack && stacko->next != NULL)
 		stack = stack->next;
 	return (stack);
 }
 
-t_stack *before_bottom(t_stack *stack)
+t_stack	*before_bottom(t_stack *stack)
 {
 	while (stack && stack->next->next != NULL)
 		stack = stack->next;
 	return (stack);
 }
 
-int get_stack_size(t_stack *stack)
+int	get_stack_size(t_stack *stack)
 {
-	int size;
+	int	size;
 
 	size = 0;
-	if(!stack)
+	if (!stack)
 		return (0);
 	while (stack)
 	{
