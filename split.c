@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   split.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mfornovi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/17 17:37:02 by mfornovi          #+#    #+#             */
+/*   Updated: 2024/12/17 17:37:05 by mfornovi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 size_t	ft_strlen(const char *s)
@@ -30,7 +42,7 @@ static unsigned int	countwords(const char *s, char c)
 static char	*word_dup(const char *str, int start, int finish)
 {
 	char	*word;
-	int	i;
+	int		i;
 
 	i = 0;
 	word = malloc((finish - start + 1) * sizeof(char));
