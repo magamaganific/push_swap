@@ -41,7 +41,7 @@ long int	ft_atoi(const char *str)
 {
 	long int	nb;
 	int			isneg;
-	int 		i;
+	int			i;
 
 	nb = 0;
 	isneg = 1;
