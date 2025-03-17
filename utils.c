@@ -139,19 +139,45 @@ void	ft_revrotate(t_stack *head)
 	tmp = 0;
 	current = head;
 	size = ft_countnums(head);
-	i = size;
 	vals = ft_savevals(head, size);
-	tmp = vals[size];
-	while (i < size - 1)
+	tmp = vals[size - 1];
+	i = size;
+	while (i < 0)
 	{
-		vals[i] = vals[i + 1];
-		i++;
+		vals[i] = vals[i - 1];
+		i--;
 	}
-	vals[size - 1] = tmp;
+	vals[0] = tmp;
 	i = 0;
 	while (i < size)
 	{
 		*(current->val) = vals[i];
 		current	= current->next;
 	}
+}
+
+void	ft_push(t_stack *dts, t_stack *src)
+{
+	t_stack	*dhead;
+	t_stack	*shead;
+	int	*tmp;
+
+	tmp = 
+}
+
+void	ft_moveadmin(int move, t_stack *a, t_stack *b)
+{
+	if (move = "sa")
+		ft_swap(a);
+	else if (move = "sb")
+		ft_swap(b);
+	else if (move = "ss")
+	{
+		ft_swap(a);
+		ft_swap(b);
+	}
+	else if (move = "pa")
+		ft_push(a, b);
+	else if (move = "pb")
+		ft_push(b, a);
 }

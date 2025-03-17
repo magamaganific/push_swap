@@ -43,8 +43,8 @@ void imprimirLista(Nodo *cabeza) {
     printf("NULL\n");
 }
 
-// Función para mover los valores hacia arriba en la lista
-void moverValoresHaciaArriba(Nodo *cabeza) {
+// Función para mover los valores hacia Abajo en la lista
+void moverValoresHaciaAbajo(Nodo *cabeza) {
     if (cabeza == NULL || cabeza->siguiente == NULL) {
         // Si la lista está vacía o tiene un solo nodo, no se hace nada
         return;
@@ -69,7 +69,7 @@ void moverValoresHaciaArriba(Nodo *cabeza) {
         actual = actual->siguiente;
     }
 
-    // Paso 2: Mover los valores hacia arriba en el arreglo
+    // Paso 2: Mover los valores hacia Abajo en el arreglo
     int tmp = valores[size - 1];
     for (int i = size; i > 0 ; i--) {
         valores[i] = valores[i - 1];
@@ -99,11 +99,11 @@ int main() {
     printf("Lista original:\n");
     imprimirLista(cabeza);
     
-    // Mover los valores hacia arriba
-    moverValoresHaciaArriba(cabeza);
+    // Mover los valores hacia Abajo
+    moverValoresHaciaAbajo(cabeza);
     
     // Imprimir la lista después del movimiento
-    printf("\nLista después de mover los valores hacia arriba:\n");
+    printf("\nLista después de mover los valores hacia Abajo:\n");
     imprimirLista(cabeza);
     
     // Liberar memoria de los nodos
