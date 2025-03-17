@@ -85,7 +85,7 @@ void moverValoresHaciaAbajo(Nodo *cabeza) {
 
 void ft_push(Nodo *dst, Nodo *src)
 {
-	if (cabeza == NULL || cabeza->siguiente == NULL) {
+	if (dst == NULL || dst->siguiente == NULL) {
         // Si la lista está vacía o tiene un solo nodo, no se hace nada
         return;
     }
@@ -101,7 +101,7 @@ void ft_push(Nodo *dst, Nodo *src)
     }
     
     int valores[size];
-    actual = cabeza;
+    actual = dst;
     
     // Guardamos los valores en el arreglo
     for (int i = 0; i < size; i++) {
@@ -109,17 +109,25 @@ void ft_push(Nodo *dst, Nodo *src)
         actual = actual->siguiente;
     }
 
+	Nodo *nuevo = src;
+	int finval[size + 1];
+	int newval[1];
+	newval[0] = *(nuevo->numero);
+	Nodo *temp = nuevo;
+	nuevo = nuevo->siguiente;
+	free
+
     // Paso 2: Mover los valores hacia Abajo en el arreglo
-    int tmp = valores[size - 1];
-    for (int i = size; i >= 0 ; i--) {
-        valores[i] = valores[i - 1];
+    int tmp = newval[0];
+    for (int i = size + 1; i > 0 ; i--) {
+        finval[i] = valores[i - 1];
     }
-    valores[0] = tmp;
+    finval[0] = tmp;
 
     // Paso 3: Asignar los valores movidos de vuelta a los nodos
-    actual = cabeza;
+    actual = dst;
     for (int i = 0; i < size; i++) {
-        *(actual->numero) = valores[i];
+        *(actual->numero) = finval[i];
         actual = actual->siguiente;
     }
 }
@@ -135,7 +143,7 @@ int main() {
     
     // Crear la lista de nodos utilizando doble puntero
 	printf("\nCreando lista a:\n");
-    for (int i = 0; i < cantidad; i++) {
+    for (int i = 0; i < cantidad + 1; i++) {
         agregarNodo(&cabeza, &numeros[i]);  // Pasamos la dirección de la cabeza
     	imprimirLista(cabeza);
     }
@@ -168,6 +176,7 @@ int main() {
 	Nodo *actualb = cabezb;
 	printf("\nBorrando listb:\n");
     while (actualb != NULL) {
+		imprimirLista(cabezb);
         Nodo *tempb = actualb;
         actualb = actualb->siguiente;
         free(tempb);
