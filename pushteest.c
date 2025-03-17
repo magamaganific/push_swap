@@ -165,12 +165,12 @@ int main() {
 	// Imprimir la lista después del movimiento
 	printf("\nListas después de push:\n");
 	imprimirLista(cabeza);
-	imprimirLista(cabezb);
 	
 	// Liberar memoria de los nodos
 	Nodo *actual = cabeza;
 	printf("\nBorrando lista:\n");
 	while (actual != NULL) {
+		imprimirLista(actual);
 		Nodo *temp = actual;
 		actual = actual->siguiente;
 		free(temp);
@@ -178,7 +178,7 @@ int main() {
 	Nodo *actualb = cabezb;
 	printf("\nBorrando listb:\n");
 	while (actualb != NULL) {
-		imprimirLista(cabezb);
+		imprimirLista(actualb);
 		Nodo *tempb = actualb;
 		actualb = actualb->siguiente;
 		free(tempb);
