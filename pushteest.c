@@ -117,7 +117,7 @@ int main() {
 	}
     
     // Imprimir la lista original
-    printf("\nLista original:\n");
+    printf("\nListas originales:\n");
     imprimirLista(cabeza);
 	imprimirLista(cabezb);
     
@@ -127,6 +127,7 @@ int main() {
     // Imprimir la lista después del movimiento
     printf("\nListas después de push:\n");
     imprimirLista(cabeza);
+	imprimirLista(cabezb);
     
     // Liberar memoria de los nodos
     Nodo *actual = cabeza;
