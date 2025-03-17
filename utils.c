@@ -58,3 +58,64 @@ void	ft_printstack(t_stack *head)
 	}
 	ft_printf("NULL\n");
 }
+
+void	ft_swap(t_stack *num1, t_stack *num2)
+{
+	int	*tmp;
+
+	tmp = num1->val;
+	num1->val = num2->val;
+	num2->val = tmp;
+}
+
+int	ft_countnums(t_stack *head)
+{
+	t_stack	*current;
+	int		*size;
+
+	current = head;
+	while (current != NULL)
+	{
+		size++;
+		current = current->next;
+	}
+	return(size);
+}
+
+int	**ft_savevals(s_stack *head, int size)
+{
+	t_stack	*current;
+	int		**vals;
+	int		i;
+
+	i = 0;
+	current = head;
+	vals = (int **)malloc(sizeof(int) * size);
+	while (i < size)
+	{
+		vals[i] = *(current->val);
+		current = current->next;
+		i++;
+	}
+	return (vals);
+}
+
+void	ft_rotate(t_stack *head)
+{
+	t_stack	*current;
+	int		**vals;
+	int		*size;
+	int		*tmp;
+	int		i;
+
+	i = 0;
+	tmp = 0;
+	current = head;
+	size = ft_countnums(head);
+	vals = ft_savevals(head, size);
+	tmp = vals[0];
+	while (i < size)
+	{
+		
+	}
+}
