@@ -36,7 +36,7 @@ void agregarNodo(Nodo **cabeza, int *numero) {
 // Función para imprimir los valores de los nodos
 void imprimirLista(Nodo *cabeza) {
 	Nodo *actual = cabeza;
-	while (actual != NULL) {
+	while (actual->siguiente != NULL) {
 		printf("%d -> ", *(actual->numero));
 		actual = actual->siguiente;
 	}
