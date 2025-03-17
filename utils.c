@@ -25,6 +25,15 @@ t_stack	*ft_addval(int num)
 	return (newval);
 }
 
+void	ft_addlast(t_stack **head, t_stack *newnum)
+{
+	t_stack	*current;
+
+	current = *head;
+	while (current->next != NULL)
+		current = current->next;
+	current->next = newnum;
+}
 
 void	ft_stacknum(t_stack **head, int *num)
 {
@@ -35,4 +44,17 @@ void	ft_stacknum(t_stack **head, int *num)
 		*head = newnum;
 	else
 		ft_addlast(head, newnum);
+}
+
+void	ft_printstack(t_stack *head)
+{
+	t_stack	*current;
+
+	current = head;
+	while (current != NULL)
+	{
+		ft_printf("%d -> ", *(current->val));
+		current = current->next;
+	}
+	ft_printf("NULL\n");
 }
