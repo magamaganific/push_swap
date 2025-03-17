@@ -114,8 +114,44 @@ void	ft_rotate(t_stack *head)
 	size = ft_countnums(head);
 	vals = ft_savevals(head, size);
 	tmp = vals[0];
+	while (i < size - 1)
+	{
+		vals[i] = vals[i + 1];
+		i++;
+	}
+	vals[size - 1] = tmp;
+	i = 0;
 	while (i < size)
 	{
-		
+		*(current->val) = vals[i];
+		current	= current->next;
+	}
+}
+
+void	ft_revrotate(t_stack *head)
+{
+	t_stack	*current;
+	int		**vals;
+	int		*size;
+	int		*tmp;
+	int		i;
+
+	tmp = 0;
+	current = head;
+	size = ft_countnums(head);
+	i = size;
+	vals = ft_savevals(head, size);
+	tmp = vals[size];
+	while (i < size - 1)
+	{
+		vals[i] = vals[i + 1];
+		i++;
+	}
+	vals[size - 1] = tmp;
+	i = 0;
+	while (i < size)
+	{
+		*(current->val) = vals[i];
+		current	= current->next;
 	}
 }
