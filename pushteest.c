@@ -127,7 +127,7 @@ int main() {
 	imprimirLista(cabezb);
     
     // Mover los valores hacia arriba
-    ft_push(cabeza, cabezb);
+    ft_push(cabezb, cabeza);
     
     // Imprimir la lista después del movimiento
     printf("\nListas después de push:\n");
