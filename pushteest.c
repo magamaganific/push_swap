@@ -92,11 +92,6 @@ void ft_push(Nodo *cabeza, Nodo *cabezb)
 	tmp = *(actualb->numero);
 	agregarNodo(&cabeza, &tmp);
 	moverValoresHaciaAbajo(cabeza);
-    Nodo *tempb = actualb;
-    actualb = actualb->siguiente;
-	imprimirLista(actualb);
-    free(tempb);
-
 }
 
 int main() {
@@ -139,8 +134,14 @@ int main() {
     while (actual != NULL) {
         Nodo *temp = actual;
         actual = actual->siguiente;
-		imprimirLista(actual);
         free(temp);
+    }
+	Nodo *actualb = cabezb;
+	printf("\nBorrando listb:\n");
+    while (actualb != NULL) {
+        Nodo *tempb = actualb;
+        actualb = actualb->siguiente;
+        free(tempb);
     }
 
     return 0;
