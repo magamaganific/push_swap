@@ -83,15 +83,45 @@ void moverValoresHaciaAbajo(Nodo *cabeza) {
     }
 }
 
-void ft_push(Nodo *cabeza, Nodo *cabezb)
+void ft_push(Nodo *dst, Nodo *src)
 {
-	Nodo *actualb;
-	int *tmp;
+	if (cabeza == NULL || cabeza->siguiente == NULL) {
+        // Si la lista está vacía o tiene un solo nodo, no se hace nada
+        return;
+    }
 
-	actualb = cabezb;
-	tmp = (actualb->numero);
-	agregarNodo(&cabeza, tmp);
-	moverValoresHaciaAbajo(cabeza);
+    // Paso 1: Guardar los valores de la lista en un arreglo
+    Nodo *actual = dst;
+    int size = 0;
+    
+    // Contamos cuántos nodos hay en la lista
+    while (actual != NULL) {
+        size++;
+        actual = actual->siguiente;
+    }
+    
+    int valores[size];
+    actual = cabeza;
+    
+    // Guardamos los valores en el arreglo
+    for (int i = 0; i < size; i++) {
+        valores[i] = *(actual->numero);
+        actual = actual->siguiente;
+    }
+
+    // Paso 2: Mover los valores hacia Abajo en el arreglo
+    int tmp = valores[size - 1];
+    for (int i = size; i >= 0 ; i--) {
+        valores[i] = valores[i - 1];
+    }
+    valores[0] = tmp;
+
+    // Paso 3: Asignar los valores movidos de vuelta a los nodos
+    actual = cabeza;
+    for (int i = 0; i < size; i++) {
+        *(actual->numero) = valores[i];
+        actual = actual->siguiente;
+    }
 }
 
 int main() {
