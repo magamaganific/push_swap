@@ -86,11 +86,11 @@ void moverValoresHaciaAbajo(Nodo *cabeza) {
 void ft_push(Nodo *cabeza, Nodo *cabezb)
 {
 	Nodo *actualb;
-	int tmp;
+	int *tmp;
 
 	actualb = cabezb;
-	tmp = *(actualb->numero);
-	agregarNodo(&cabeza, &tmp);
+	tmp = (actualb->numero);
+	agregarNodo(&cabeza, tmp);
 	moverValoresHaciaAbajo(cabeza);
 }
 
@@ -111,10 +111,8 @@ int main() {
     }
 	
 	printf("\nCreando lista b:\n");
-    for (int i = 0; i < cantidbd; i++) {
-        agregarNodo(&cabezb, &añadir[i]);  // Pasamos la dirección de la cabeza
-    	imprimirLista(cabezb);
-	}
+    agregarNodo(&cabezb, &añadir[0]);  // Pasamos la dirección de la cabeza
+    imprimirLista(cabezb);
     
     // Imprimir la lista original
     printf("\nListas originales:\n");
@@ -122,7 +120,7 @@ int main() {
 	imprimirLista(cabezb);
     
     // Mover los valores hacia arriba
-    ft_push(cabezb, cabeza);
+    ft_push(cabeza, cabezb);
     
     // Imprimir la lista después del movimiento
     printf("\nListas después de push:\n");
