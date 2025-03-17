@@ -11,9 +11,12 @@
 /* ************************************************************************** */
 
 #include "libft/libft.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include <limits.h>
+
 typedef struct s_stack
 {
-	int				val;
+	int				*val;
 	struct s_stack	*next;
 }	t_stack;
