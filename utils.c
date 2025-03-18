@@ -114,7 +114,7 @@ size_t	ft_countnums(t_stack *head)
 	return(size);
 }
 
-int	*ft_savevals(t_stack *head, int size)
+int	*ft_savevals(t_stack *head, size_t size)
 {
 	t_stack	*current;
 	int		*vals;
@@ -132,26 +132,12 @@ int	*ft_savevals(t_stack *head, int size)
 	return (vals);
 }
 
-void	ft_rotate(t_stack *head)
+void	ft_saverot(t_stack *head, int *vals, size_t size)
 {
 	t_stack	*current;
-	size_t		size;
-	int		*vals;
-	int		tmp;
 	int		i;
 
-	i = 0;
-	tmp = 0;
 	current = head;
-	size = ft_countnums(current);
-	vals = ft_savevals(current, size);
-	tmp = vals[0];
-	while (i < size - 1)
-	{
-		vals[i] = vals[i + 1];
-		i++;
-	}
-	vals[size - 1] = tmp;
 	i = 0;
 	while (i < size)
 	{
@@ -160,17 +146,36 @@ void	ft_rotate(t_stack *head)
 		i++;
 	}
 }
+void	ft_rotate(t_stack *head)
+{
+	size_t		size;
+	int		*vals;
+	int		tmp;
+	int		i;
+
+	i = 0;
+	tmp = 0;
+	size = ft_countnums(head);
+	vals = ft_savevals(head, size);
+	tmp = vals[0];
+	while (i < size - 1)
+	{
+		vals[i] = vals[i + 1];
+		i++;
+	}
+	vals[size - 1] = tmp;
+	ft_saverot(head, vals, size);
+	free(vals);
+}
 
 void	ft_revrotate(t_stack *head)
 {
-	t_stack	*current;
 	int		*vals;
 	int		size;
 	int		tmp;
 	int		i;
 
 	tmp = 0;
-	current = head;
 	size = ft_countnums(head);
 	vals = ft_savevals(head, size);
 	tmp = vals[size - 1];
@@ -181,13 +186,8 @@ void	ft_revrotate(t_stack *head)
 		i--;
 	}
 	vals[0] = tmp;
-	i = 0;
-	while (i < size)
-	{
-		*(current->val) = vals[i];
-		current	= current->next;
-		i++;
-	}
+	ft_saverot(head, vals, size);
+	free(vals);
 }
 
 void	ft_push(t_stack **src, t_stack **dst)
@@ -230,6 +230,8 @@ int main(void) //test
 
 	a = NULL;
 	b = NULL;
+
+	ft_printf("initial stacks:\n");
 	while (i < n)
 	{
 		ft_stacknum(&a, &nums[i]);
@@ -243,9 +245,18 @@ int main(void) //test
 		i++;
 	}
 	ft_printstack(b);
+	ft_printf("push a b:\n");
 	ft_push(&a, &b);
+	ft_printstack(b);
+	ft_printstack(a);
+	ft_printf("rotate a:\n");
 	ft_rotate(a);
+	ft_printstack(a);
+	ft_printf("rotate b:\n");
 	ft_rotate(b);
+	ft_printstack(b);
+	ft_printf("swap a:\n");
+	ft_swap(&a);
 	ft_printstack(a);
 	ft_printstack(b);
 	ft_freestack(a);
