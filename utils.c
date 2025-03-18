@@ -12,7 +12,21 @@
 
 #include "push_swap.h"
 
-t_stack	*ft_addval(int num)
+void	ft_freestack(t_stack *head)
+{
+	t_stack	*current;
+	t_stack *tmp;
+
+	current = head;
+	while (current != NULL)
+	{
+		tmp = current;
+		current = current->next;
+		free(tmp);
+	}
+}
+
+t_stack	*ft_addval(int *num)
 {
 	t_stack	*newval;
 
@@ -45,6 +59,19 @@ void	ft_stacknum(t_stack **head, int *num)
 	else
 		ft_addlast(head, newnum);
 }
+void	ft_stackfront(t_stack **head, int *num)
+{
+	t_stack *newnum;
+
+	newnum = ft_addval(num);
+	if(*head == NULL)
+		*head = newnum;
+	else
+	{
+		newnum->next = *head;
+		*head = newnum;
+	}
+}
 
 void	ft_printstack(t_stack *head)
 {
@@ -59,20 +86,25 @@ void	ft_printstack(t_stack *head)
 	ft_printf("NULL\n");
 }
 
-void	ft_swap(t_stack *num1, t_stack *num2)
+void	ft_swap(t_stack **stck)
 {
 	int	*tmp;
+	t_stack *num1;
+	t_stack *num2;
 
+	num1 = *stck;
+	num2 = (*stck)->next;
 	tmp = num1->val;
 	num1->val = num2->val;
 	num2->val = tmp;
 }
 
-int	ft_countnums(t_stack *head)
+size_t	ft_countnums(t_stack *head)
 {
 	t_stack	*current;
-	int		*size;
+	size_t	size;
 
+	size = 0;
 	current = head;
 	while (current != NULL)
 	{
@@ -82,15 +114,15 @@ int	ft_countnums(t_stack *head)
 	return(size);
 }
 
-int	**ft_savevals(s_stack *head, int size)
+int	*ft_savevals(t_stack *head, int size)
 {
 	t_stack	*current;
-	int		**vals;
+	int		*vals;
 	int		i;
 
 	i = 0;
 	current = head;
-	vals = (int **)malloc(sizeof(int) * size);
+	vals = (int *)malloc(sizeof(int) * size);
 	while (i < size)
 	{
 		vals[i] = *(current->val);
@@ -103,16 +135,16 @@ int	**ft_savevals(s_stack *head, int size)
 void	ft_rotate(t_stack *head)
 {
 	t_stack	*current;
-	int		**vals;
-	int		*size;
-	int		*tmp;
+	size_t		size;
+	int		*vals;
+	int		tmp;
 	int		i;
 
 	i = 0;
 	tmp = 0;
 	current = head;
-	size = ft_countnums(head);
-	vals = ft_savevals(head, size);
+	size = ft_countnums(current);
+	vals = ft_savevals(current, size);
 	tmp = vals[0];
 	while (i < size - 1)
 	{
@@ -125,15 +157,16 @@ void	ft_rotate(t_stack *head)
 	{
 		*(current->val) = vals[i];
 		current	= current->next;
+		i++;
 	}
 }
 
 void	ft_revrotate(t_stack *head)
 {
 	t_stack	*current;
-	int		**vals;
-	int		*size;
-	int		*tmp;
+	int		*vals;
+	int		size;
+	int		tmp;
 	int		i;
 
 	tmp = 0;
@@ -153,6 +186,7 @@ void	ft_revrotate(t_stack *head)
 	{
 		*(current->val) = vals[i];
 		current	= current->next;
+		i++;
 	}
 }
 
@@ -163,10 +197,10 @@ void	ft_push(t_stack **src, t_stack **dst)
 	headS = *src;
 	*src = headS->next;
 
-	ft_stacknum(dst, headS->val);
+	ft_stackfront(dst, headS->val);
 	free(headS);
 }
-
+/*
 void	ft_moveadmin(int move, t_stack *a, t_stack *b)
 {
 	if (move = "sa")
@@ -182,4 +216,38 @@ void	ft_moveadmin(int move, t_stack *a, t_stack *b)
 		ft_push(a, b);
 	else if (move = "pb")
 		ft_push(b, a);
+}*/
+
+int main(void) //test
+{
+	int nums[] = {20, 30, 40, 50};
+	int	num[] = {10};
+	int n = sizeof(nums)/sizeof(nums[0]);
+	int m = sizeof(num)/sizeof(num[0]);
+	int i = 0;
+	t_stack *a;
+	t_stack *b;
+
+	a = NULL;
+	b = NULL;
+	while (i < n)
+	{
+		ft_stacknum(&a, &nums[i]);
+		i++;
+	}
+	ft_printstack(a);
+	i = 0;
+	while (i < m)
+	{
+		ft_stacknum(&b, &num[i]);
+		i++;
+	}
+	ft_printstack(b);
+	ft_push(&a, &b);
+	ft_rotate(a);
+	ft_rotate(b);
+	ft_printstack(a);
+	ft_printstack(b);
+	ft_freestack(a);
+	ft_freestack(b);
 }
