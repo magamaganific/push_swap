@@ -156,13 +156,15 @@ void	ft_revrotate(t_stack *head)
 	}
 }
 
-void	ft_push(t_stack *dts, t_stack *src)
+void	ft_push(t_stack **src, t_stack **dst)
 {
-	t_stack	*dhead;
-	t_stack	*shead;
-	int	*tmp;
+	t_stack *headS;
 
-	tmp = 
+	headS = *src;
+	*src = headS->next;
+
+	ft_stacknum(dst, headS->val);
+	free(headS);
 }
 
 void	ft_moveadmin(int move, t_stack *a, t_stack *b)
