@@ -180,7 +180,7 @@ void	ft_revrotate(t_stack *head)
 	vals = ft_savevals(head, size);
 	tmp = vals[size - 1];
 	i = size;
-	while (i < 0)
+	while (i > 0)
 	{
 		vals[i] = vals[i - 1];
 		i--;
@@ -247,10 +247,10 @@ int main(void) //test
 	ft_printstack(b);
 	ft_printf("push a b:\n");
 	ft_push(&a, &b);
-	ft_printstack(b);
 	ft_printstack(a);
-	ft_printf("rotate a:\n");
-	ft_rotate(a);
+	ft_printstack(b);
+	ft_printf("revrotate a:\n");
+	ft_revrotate(a);
 	ft_printstack(a);
 	ft_printf("rotate b:\n");
 	ft_rotate(b);
