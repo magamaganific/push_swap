@@ -288,7 +288,7 @@ int main(void) //test
 	}
 	ft_printstack(b);
 	ft_printf("push a b:\n");
-	ft_push(&a, &b);
+	ft_moveadmin("pa", a, b);
 	ft_printstack(a);
 	ft_printstack(b);
 	ft_printf("push b a:\n");
