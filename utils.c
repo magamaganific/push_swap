@@ -122,7 +122,7 @@ int	*ft_savevals(t_stack *head, size_t size)
 
 	i = 0;
 	current = head;
-	vals = (int *)malloc(sizeof(int) * size);
+	vals = (int *)malloc(sizeof(int) * size + 1);
 	while (i < size)
 	{
 		vals[i] = *(current->val);
@@ -179,7 +179,7 @@ void	ft_revrotate(t_stack *head)
 	size = ft_countnums(head);
 	vals = ft_savevals(head, size);
 	tmp = vals[size - 1];
-	i = size;
+	i = size - 1;
 	while (i > 0)
 	{
 		vals[i] = vals[i - 1];
@@ -200,23 +200,65 @@ void	ft_push(t_stack **src, t_stack **dst)
 	ft_stackfront(dst, headS->val);
 	free(headS);
 }
-/*
-void	ft_moveadmin(int move, t_stack *a, t_stack *b)
+
+void	ft_ssab(char move, t_stack *a, t_stack *b)
 {
-	if (move = "sa")
-		ft_swap(a);
-	else if (move = "sb")
-		ft_swap(b);
-	else if (move = "ss")
+	if (move == 'a')
+		ft_swap(&a);
+	else if (move == 'b')
+		ft_swap(&b);
+	else if (move == 's')
 	{
-		ft_swap(a);
-		ft_swap(b);
+		ft_swap(&a);
+		ft_swap(&b);
 	}
-	else if (move = "pa")
-		ft_push(a, b);
-	else if (move = "pb")
-		ft_push(b, a);
-}*/
+}
+
+void	ft_pab(char *move, t_stack *a, t_stack *b)
+{
+	if (move[1] == 'a')
+		ft_push(&b, &a);
+	else if (move[1] == 'b')
+		ft_push(&a, &b);
+}
+
+void	ft_r2ab(char move, t_stack *a, t_stack *b)
+{
+	if (move == 'a')
+		ft_rotate(a);
+	else if (move == 'b')
+		ft_rotate(b);
+	else if (move == 'r')
+	{
+		ft_rotate(a);
+		ft_rotate(b);
+	}
+}
+
+void	ft_r3ab(char move, t_stack *a, t_stack *b)
+{
+	if (move == 'a')
+		ft_revrotate(a);
+	else if (move == 'b')
+		ft_revrotate(b);
+	else if (move == 'r')
+	{
+		ft_revrotate(a);
+		ft_revrotate(b);
+	}
+}
+
+void	ft_moveadmin(char *move, t_stack *a, t_stack *b)
+{
+	if (move[0] == 's')
+		ft_ssab(move[1], a, b);
+	else if (move[0] == 'p')
+		ft_pab(move, a, b);
+	else if (move[0] == 'r' && move[1] != 'r')
+		ft_r2ab(move[1], a, b);
+	else if (move[0] == 'r' && move[1] == 'r')
+		ft_r3ab(move[2], a, b);
+}
 
 int main(void) //test
 {
@@ -247,6 +289,10 @@ int main(void) //test
 	ft_printstack(b);
 	ft_printf("push a b:\n");
 	ft_push(&a, &b);
+	ft_printstack(a);
+	ft_printstack(b);
+	ft_printf("push b a:\n");
+	ft_push(&b, &a);
 	ft_printstack(a);
 	ft_printstack(b);
 	ft_printf("revrotate a:\n");
