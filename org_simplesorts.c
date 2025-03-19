@@ -1,0 +1,46 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   simplesorts.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mfornovi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/19 13:27:37 by mfornovi          #+#    #+#             */
+/*   Updated: 2025/03/19 13:29:14 by mfornovi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
+
+int	ft_stkissorted(t_stack *head)
+{
+	t_stack	*current;
+	t_stack	*prev;
+
+	current = head->next;
+	prev = head;
+	while (current != NULL)
+	{
+		if (*(prev->val) > *(current->val))
+			return (0);
+		prev = current;
+		current = current->next;
+	}
+	return (1);
+}
+
+void	ft_sort3(t_stack **a)
+{
+	t_stack	*head;
+	t_stack	*next;
+
+	head = *a;
+	next = head->next;
+	while (!ft_stkissorted(*a))
+	{
+		if (*(head->val) > *(next->val))
+			ft_swap(a);
+		else
+			ft_revrotate(*a);
+	}
+}
