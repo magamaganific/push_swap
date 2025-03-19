@@ -265,6 +265,111 @@ void	ft_moveadmin(int move, int who, t_stack **a, t_stack **b)
 		ft_r3ab(who, a, b);
 }
 
+int	ft_strisnum(char *arg)
+{
+	int	i;
+
+	i = 0;
+	while (arg[i])
+	{
+		if (ft_isdigit(arg[i]) == 0)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+size_t	ft_countargs(char **args)
+{
+	size_t	i;
+
+	i = 0; 
+	while (args[i])
+		i++;
+	return (i);
+}
+
+int	*ft_check_args(char **args)
+{
+	size_t	size;
+	int		*nums;
+	int		i;
+
+	size = ft_countargs(args);
+	nums = (int *)malloc(sizeof(int) * size + 1);
+	i = 0;
+	while (i < size)
+	{
+		if (ft_strisnum(args[i]) == 0)
+		{
+			free(nums);
+			exit(1);
+		}
+		nums[i] = ft_atoi(args[i]);
+		i++;
+	}
+	return(nums);
+}
+
+void	ft_stackargs(char **args, t_stack **a)
+{
+	size_t	size;
+	int		*nums;
+	int		i;
+
+	nums = ft_check_args(args);
+	size = ft_countargs(args);
+	i = 0;
+	while (i < size)
+	{
+		ft_stacknum(a, &nums[i]);
+		i++;
+	}
+	ft_printstack(*a);
+}
+
+char	**ft_args_to_stack(int ac, char **av)
+{
+	char	**args;
+
+	args = (char **)malloc(sizeof(char *) * ac);
+	args[ac - 2] = NULL;
+	while (ac != 0)
+	{
+		 args[ac] = ft_strdup(av[ac + 1]);
+		 ac--;
+	}
+	return (args);
+}
+
+int	main(int ac, char **av)
+{
+	t_stack *a;
+	t_stack	*b;
+	char	**args;
+
+	a = NULL;
+	b = NULL;
+	if (ac == 1)
+		exit(1);
+	if (ac == 2)
+	{
+		if (ft_strlen(av[1]))
+			args = ft_split(av[1], ' ');
+		else
+			return(ft_putstr_fd("Error\n", 2), 1);
+	}
+	else
+		args = ft_args_to_stack(ac, av);
+	ft_printf("initial stack:\n");
+	ft_stackargs(args, &a);
+	if (!ft_stkissorted(stack_a))
+		ft_push_swap(&a, &b);
+	ft_freestack(a);
+	ft_freestack(b);
+	return (0);
+}
+/*
 int main(void) //test
 {
 	int nums[] = {20, 30, 40, 50};
@@ -319,4 +424,4 @@ int main(void) //test
 	ft_printstack(b);
 	ft_freestack(a);
 	ft_freestack(b);
-}
+}*/
