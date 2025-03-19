@@ -31,7 +31,7 @@ int	*ft_savevals(t_stack *head, size_t size)
 {
 	t_stack	*current;
 	int		*vals;
-	int		i;
+	size_t	i;
 
 	i = 0;
 	current = head;
@@ -48,7 +48,7 @@ int	*ft_savevals(t_stack *head, size_t size)
 void	ft_saverot(t_stack *head, int *vals, size_t size)
 {
 	t_stack	*current;
-	int		i;
+	size_t	i;
 
 	current = head;
 	i = 0;
@@ -62,10 +62,10 @@ void	ft_saverot(t_stack *head, int *vals, size_t size)
 
 void	ft_rotate(t_stack *head)
 {
-	size_t		size;
-	int			*vals;
-	int			tmp;
-	int			i;
+	size_t	size;
+	size_t	i;
+	int		*vals;
+	int		tmp;
 
 	i = 0;
 	tmp = 0;

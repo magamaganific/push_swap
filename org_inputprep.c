@@ -60,8 +60,8 @@ int	ft_dupedints(t_stack *a)
 int	*ft_check_args(char **args)
 {
 	size_t	size;
+	size_t	i;
 	int		*nums;
-	int		i;
 
 	size = ft_countargs(args);
 	nums = (int *)malloc(sizeof(int) * size);

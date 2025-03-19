@@ -39,7 +39,7 @@ void	ft_ssab(int move, t_stack **a, t_stack **b);
 void	ft_pab(int move, t_stack **a, t_stack **b);
 void	ft_r2ab(int move, t_stack **a, t_stack **b);
 void	ft_r3ab(int move, t_stack **a, t_stack **b);
-void	ft_moveadmin(int move, int who, t_stack **a, t_stack **b);
+//void	ft_moveadmin(int move, int who, t_stack **a, t_stack **b);
 int		ft_stkissorted(t_stack *head);
 void	ft_sort3(t_stack **a);
 void	ft_push_swap(t_stack **a, t_stack **b);

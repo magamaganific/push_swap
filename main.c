@@ -12,11 +12,36 @@
 
 #include "push_swap.h"
 
+void	ft_moveadmin(int move, int who, t_stack **a, t_stack **b)
+{
+	if (move == 1)
+		ft_ssab(who, a, b);
+	else if (move == 2)
+		ft_pab(who, a, b);
+	else if (move == 3)
+		ft_r2ab(who, a, b);
+	else if (move == 4)
+		ft_r3ab(who, a, b);
+}
+
+void	ft_push_swap(t_stack **a, t_stack **b)
+{
+	ft_printf("initial stack:\n");
+	ft_printstack(*a);
+	if (ft_countnums(*a) == 2)
+		ft_swap(a);
+	else if (ft_countnums(*a) == 3)
+		ft_sort3(a);
+	b = NULL;
+	ft_printf("final stack:\n");
+	ft_printstack(*a);
+}
+
 int	*ft_stackargs(char **args, t_stack **a)
 {
 	size_t	size;
+	size_t	i;
 	int		*nums;
-	int		i;
 
 	nums = ft_check_args(args);
 	size = ft_countargs(args);
