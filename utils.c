@@ -156,6 +156,8 @@ void	ft_rotate(t_stack *head)
 	i = 0;
 	tmp = 0;
 	size = ft_countnums(head);
+	if (size < 2)
+		return ;
 	vals = ft_savevals(head, size);
 	tmp = vals[0];
 	while (i < size - 1)
@@ -177,6 +179,8 @@ void	ft_revrotate(t_stack *head)
 
 	tmp = 0;
 	size = ft_countnums(head);
+	if (size < 2)
+		return ;
 	vals = ft_savevals(head, size);
 	tmp = vals[size - 1];
 	i = size - 1;
@@ -194,70 +198,71 @@ void	ft_push(t_stack **src, t_stack **dst)
 {
 	t_stack *headS;
 
+	if (*src == NULL)
+		return ;
 	headS = *src;
 	*src = headS->next;
-
 	ft_stackfront(dst, headS->val);
 	free(headS);
 }
 
-void	ft_ssab(char move, t_stack *a, t_stack *b)
+void	ft_ssab(int move, t_stack **a, t_stack **b)
 {
-	if (move == 'a')
-		ft_swap(&a);
-	else if (move == 'b')
-		ft_swap(&b);
-	else if (move == 's')
+	if (move == 1)
+		ft_swap(a);
+	else if (move == 2)
+		ft_swap(b);
+	else if (move == 3)
 	{
-		ft_swap(&a);
-		ft_swap(&b);
+		ft_swap(a);
+		ft_swap(b);
 	}
 }
 
-void	ft_pab(char *move, t_stack *a, t_stack *b)
+void	ft_pab(int move, t_stack **a, t_stack **b)
 {
-	if (move[1] == 'a')
-		ft_push(&b, &a);
-	else if (move[1] == 'b')
-		ft_push(&a, &b);
+	if (move == 1)
+		ft_push(b, a);
+	else if (move == 2)
+		ft_push(a, b);
 }
 
-void	ft_r2ab(char move, t_stack *a, t_stack *b)
+void	ft_r2ab(int move, t_stack **a, t_stack **b)
 {
-	if (move == 'a')
-		ft_rotate(a);
-	else if (move == 'b')
-		ft_rotate(b);
-	else if (move == 'r')
+	if (move == 1)
+		ft_rotate(*a);
+	else if (move == 2)
+		ft_rotate(*b);
+	else if (move == 3)
 	{
-		ft_rotate(a);
-		ft_rotate(b);
+		ft_rotate(*a);
+		ft_rotate(*b);
 	}
 }
 
-void	ft_r3ab(char move, t_stack *a, t_stack *b)
+void	ft_r3ab(int move, t_stack **a, t_stack **b)
 {
-	if (move == 'a')
-		ft_revrotate(a);
-	else if (move == 'b')
-		ft_revrotate(b);
-	else if (move == 'r')
+	if (move == 1)
+		ft_revrotate(*a);
+	else if (move == 2)
+		ft_revrotate(*b);
+	else if (move == 4)
 	{
-		ft_revrotate(a);
-		ft_revrotate(b);
+		ft_revrotate(*a);
+		ft_revrotate(*b);
 	}
 }
 
-void	ft_moveadmin(char *move, t_stack *a, t_stack *b)
+void	ft_moveadmin(int move, int who, t_stack **a, t_stack **b)
 {
-	if (move[0] == 's')
-		ft_ssab(move[1], a, b);
-	else if (move[0] == 'p')
-		ft_pab(move, a, b);
-	else if (move[0] == 'r' && move[1] != 'r')
-		ft_r2ab(move[1], a, b);
-	else if (move[0] == 'r' && move[1] == 'r')
-		ft_r3ab(move[2], a, b);
+	if (move == 1)
+		ft_ssab(who, a, b);
+	else if (move == 2)
+		ft_pab(who, a, b);
+	else if (move == 3)
+		ft_r2ab(who, a, b);
+	else if (move == 4)
+		ft_r3ab(who, a, b);
 }
 
 int main(void) //test
@@ -288,7 +293,14 @@ int main(void) //test
 	}
 	ft_printstack(b);
 	ft_printf("push a b:\n");
-	ft_moveadmin("pa", a, b);
+	ft_push(&a, &b);
+	ft_printstack(a);
+	ft_printstack(b);
+	ft_printf("push b a:\n");
+	ft_printstack(a);
+	ft_printstack(b);
+	ft_printf("push b a:\n");
+	ft_push(&b, &a);
 	ft_printstack(a);
 	ft_printstack(b);
 	ft_printf("push b a:\n");
