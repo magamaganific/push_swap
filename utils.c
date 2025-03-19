@@ -264,6 +264,46 @@ void	ft_moveadmin(int move, int who, t_stack **a, t_stack **b)
 	else if (move == 4)
 		ft_r3ab(who, a, b);
 }
+int	ft_stkissorted(t_stack *head)
+{
+	t_stack *current;
+	t_stack *prev;
+
+	current = head->next;
+	prev = head;
+	while (current != NULL)
+	{
+		if (*(prev->val) > *(current->val))
+			return (0);
+		prev = current;
+		current = current->next;
+	}
+	return (1);
+}
+
+void	ft_sort3(t_stack **a)
+{
+	t_stack	*head;
+	t_stack *next;
+
+	head = *a;
+	next = head->next;
+	while (!ft_stkissorted(*a))
+	{
+		if(*(head->val) > *(next->val))
+			ft_swap(a);
+		else
+			ft_revrotate(*a);
+	}
+}
+
+void	ft_push_swap(t_stack **a, t_stack **b)
+{
+	if (ft_countnums(*a) == 2)
+		ft_swap(a);
+	else if (ft_countnums(*a) == 3)
+		ft_sort3(a);
+}
 
 int	ft_strisnum(char *arg)
 {
@@ -311,6 +351,27 @@ int	*ft_check_args(char **args)
 	return(nums);
 }
 
+int	ft_dupedints(t_stack *a)
+{
+	t_stack	*num;
+	t_stack	*check;
+
+	num = a;
+	check = num->next;
+	while (num != NULL)
+	{
+		check = num->next;
+		while (check != NULL)
+		{
+			if (*(num->val) == *(check->val))
+				return (1);
+			check = check->next;
+		}
+		num = num->next;
+	}
+	return (0);
+}
+
 void	ft_stackargs(char **args, t_stack **a)
 {
 	size_t	size;
@@ -325,7 +386,11 @@ void	ft_stackargs(char **args, t_stack **a)
 		ft_stacknum(a, &nums[i]);
 		i++;
 	}
-	ft_printstack(*a);
+	if (ft_dupedints(*a) != 0)
+	{
+		ft_printf("Error: Duplicated input\n");
+		exit (0);
+	}
 }
 
 char	**ft_args_to_stack(int ac, char **av)
@@ -333,12 +398,9 @@ char	**ft_args_to_stack(int ac, char **av)
 	char	**args;
 
 	args = (char **)malloc(sizeof(char *) * ac);
-	args[ac - 2] = NULL;
-	while (ac != 0)
-	{
+	args[ac-- - 1] = NULL;
+	while (ac--)
 		 args[ac] = ft_strdup(av[ac + 1]);
-		 ac--;
-	}
 	return (args);
 }
 
@@ -361,10 +423,13 @@ int	main(int ac, char **av)
 	}
 	else
 		args = ft_args_to_stack(ac, av);
-	ft_printf("initial stack:\n");
+	ft_printf("initial stack:\n");//test
 	ft_stackargs(args, &a);
-	if (!ft_stkissorted(stack_a))
+	ft_printstack(a);//test
+	if (!ft_stkissorted(a))
 		ft_push_swap(&a, &b);
+	ft_printf("final stack:\n");//test
+	ft_printstack(a);//test
 	ft_freestack(a);
 	ft_freestack(b);
 	return (0);
@@ -398,7 +463,7 @@ int main(void) //test
 	}
 	ft_printstack(b);
 	ft_printf("push a b:\n");
-	ft_push(&a, &b);
+	ft_moveadmin(2, 1, &a, &b);
 	ft_printstack(a);
 	ft_printstack(b);
 	ft_printf("push b a:\n");
@@ -424,4 +489,5 @@ int main(void) //test
 	ft_printstack(b);
 	ft_freestack(a);
 	ft_freestack(b);
-}*/
+}
+*/
