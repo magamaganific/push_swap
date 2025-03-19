@@ -15,7 +15,7 @@
 void	ft_freestack(t_stack *head)
 {
 	t_stack	*current;
-	t_stack *tmp;
+	t_stack	*tmp;
 
 	current = head;
 	while (current != NULL)
@@ -51,20 +51,21 @@ void	ft_addlast(t_stack **head, t_stack *newnum)
 
 void	ft_stacknum(t_stack **head, int *num)
 {
-	t_stack *newnum;
+	t_stack	*newnum;
 
 	newnum = ft_addval(num);
-	if(*head == NULL)
+	if (*head == NULL)
 		*head = newnum;
 	else
 		ft_addlast(head, newnum);
 }
+
 void	ft_stackfront(t_stack **head, int *num)
 {
-	t_stack *newnum;
+	t_stack	*newnum;
 
 	newnum = ft_addval(num);
-	if(*head == NULL)
+	if (*head == NULL)
 		*head = newnum;
 	else
 	{
@@ -88,9 +89,9 @@ void	ft_printstack(t_stack *head)
 
 void	ft_swap(t_stack **stck)
 {
-	int	*tmp;
-	t_stack *num1;
-	t_stack *num2;
+	int		*tmp;
+	t_stack	*num1;
+	t_stack	*num2;
 
 	num1 = *stck;
 	num2 = (*stck)->next;
@@ -111,7 +112,7 @@ size_t	ft_countnums(t_stack *head)
 		size++;
 		current = current->next;
 	}
-	return(size);
+	return (size);
 }
 
 int	*ft_savevals(t_stack *head, size_t size)
@@ -142,16 +143,17 @@ void	ft_saverot(t_stack *head, int *vals, size_t size)
 	while (i < size)
 	{
 		*(current->val) = vals[i];
-		current	= current->next;
+		current = current->next;
 		i++;
 	}
 }
+
 void	ft_rotate(t_stack *head)
 {
 	size_t		size;
-	int		*vals;
-	int		tmp;
-	int		i;
+	int			*vals;
+	int			tmp;
+	int			i;
 
 	i = 0;
 	tmp = 0;
@@ -196,14 +198,14 @@ void	ft_revrotate(t_stack *head)
 
 void	ft_push(t_stack **src, t_stack **dst)
 {
-	t_stack *headS;
+	t_stack	*shead;
 
 	if (*src == NULL)
 		return ;
-	headS = *src;
-	*src = headS->next;
-	ft_stackfront(dst, headS->val);
-	free(headS);
+	shead = *src;
+	*src = shead->next;
+	ft_stackfront(dst, shead->val);
+	free(shead);
 }
 
 void	ft_ssab(int move, t_stack **a, t_stack **b)
@@ -264,10 +266,11 @@ void	ft_moveadmin(int move, int who, t_stack **a, t_stack **b)
 	else if (move == 4)
 		ft_r3ab(who, a, b);
 }
+
 int	ft_stkissorted(t_stack *head)
 {
-	t_stack *current;
-	t_stack *prev;
+	t_stack	*current;
+	t_stack	*prev;
 
 	current = head->next;
 	prev = head;
@@ -284,13 +287,13 @@ int	ft_stkissorted(t_stack *head)
 void	ft_sort3(t_stack **a)
 {
 	t_stack	*head;
-	t_stack *next;
+	t_stack	*next;
 
 	head = *a;
 	next = head->next;
 	while (!ft_stkissorted(*a))
 	{
-		if(*(head->val) > *(next->val))
+		if (*(head->val) > *(next->val))
 			ft_swap(a);
 		else
 			ft_revrotate(*a);
@@ -323,7 +326,7 @@ size_t	ft_countargs(char **args)
 {
 	size_t	i;
 
-	i = 0; 
+	i = 0;
 	while (args[i])
 		i++;
 	return (i);
@@ -342,13 +345,14 @@ int	*ft_check_args(char **args)
 	{
 		if (ft_strisnum(args[i]) == 0)
 		{
+			ft_printf("Error: Invalid input.\n");
 			free(nums);
 			exit(1);
 		}
 		nums[i] = ft_atoi(args[i]);
 		i++;
 	}
-	return(nums);
+	return (nums);
 }
 
 int	ft_dupedints(t_stack *a)
@@ -388,7 +392,7 @@ void	ft_stackargs(char **args, t_stack **a)
 	}
 	if (ft_dupedints(*a) != 0)
 	{
-		ft_printf("Error: Duplicated input\n");
+		ft_printf("Error: Duplicated input.\n");
 		exit (0);
 	}
 }
@@ -400,13 +404,13 @@ char	**ft_args_to_stack(int ac, char **av)
 	args = (char **)malloc(sizeof(char *) * ac);
 	args[ac-- - 1] = NULL;
 	while (ac--)
-		 args[ac] = ft_strdup(av[ac + 1]);
+		args[ac] = ft_strdup(av[ac + 1]);
 	return (args);
 }
 
 int	main(int ac, char **av)
 {
-	t_stack *a;
+	t_stack	*a;
 	t_stack	*b;
 	char	**args;
 
@@ -419,7 +423,7 @@ int	main(int ac, char **av)
 		if (ft_strlen(av[1]))
 			args = ft_split(av[1], ' ');
 		else
-			return(ft_putstr_fd("Error\n", 2), 1);
+			return (ft_putstr_fd("Error\n", 2), 1);
 	}
 	else
 		args = ft_args_to_stack(ac, av);
