@@ -12,6 +12,19 @@
 
 #include "push_swap.h"
 
+void	ft_freer(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i] != NULL)
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr[i]);
+	free(arr);
+}
 void	ft_freestack(t_stack *head)
 {
 	t_stack	*current;
@@ -332,29 +345,6 @@ size_t	ft_countargs(char **args)
 	return (i);
 }
 
-int	*ft_check_args(char **args)
-{
-	size_t	size;
-	int		*nums;
-	int		i;
-
-	size = ft_countargs(args);
-	nums = (int *)malloc(sizeof(int) * size + 1);
-	i = 0;
-	while (i < size)
-	{
-		if (ft_strisnum(args[i]) == 0)
-		{
-			ft_printf("Error: Invalid input.\n");
-			free(nums);
-			exit(1);
-		}
-		nums[i] = ft_atoi(args[i]);
-		i++;
-	}
-	return (nums);
-}
-
 int	ft_dupedints(t_stack *a)
 {
 	t_stack	*num;
@@ -376,7 +366,31 @@ int	ft_dupedints(t_stack *a)
 	return (0);
 }
 
-void	ft_stackargs(char **args, t_stack **a)
+int	*ft_check_args(char **args)
+{
+	size_t	size;
+	int		*nums;
+	int		i;
+
+	size = ft_countargs(args);
+	nums = (int *)malloc(sizeof(int) * size);
+	i = 0;
+	while (i < size)
+	{
+		if (ft_strisnum(args[i]) == 0)
+		{
+			ft_printf("Error: Invalid input.\n");
+			ft_freer(args);
+			free(nums);
+			exit(1);
+		}
+		nums[i] = ft_atoi(args[i]);
+		i++;
+	}
+	return (nums);
+}
+
+int	*ft_stackargs(char **args, t_stack **a)
 {
 	size_t	size;
 	int		*nums;
@@ -393,8 +407,12 @@ void	ft_stackargs(char **args, t_stack **a)
 	if (ft_dupedints(*a) != 0)
 	{
 		ft_printf("Error: Duplicated input.\n");
+		ft_freestack(*a);
+		free(nums);
+		ft_freer(args);
 		exit (0);
 	}
+	return (nums);
 }
 
 char	**ft_args_to_stack(int ac, char **av)
@@ -402,7 +420,7 @@ char	**ft_args_to_stack(int ac, char **av)
 	char	**args;
 
 	args = (char **)malloc(sizeof(char *) * ac);
-	args[ac-- - 1] = NULL;
+	args[ac-- - 1] = 0;
 	while (ac--)
 		args[ac] = ft_strdup(av[ac + 1]);
 	return (args);
@@ -413,6 +431,7 @@ int	main(int ac, char **av)
 	t_stack	*a;
 	t_stack	*b;
 	char	**args;
+	int		*nums;
 
 	a = NULL;
 	b = NULL;
@@ -428,14 +447,15 @@ int	main(int ac, char **av)
 	else
 		args = ft_args_to_stack(ac, av);
 	ft_printf("initial stack:\n");//test
-	ft_stackargs(args, &a);
+	nums = ft_stackargs(args, &a);
 	ft_printstack(a);//test
 	if (!ft_stkissorted(a))
 		ft_push_swap(&a, &b);
 	ft_printf("final stack:\n");//test
 	ft_printstack(a);//test
 	ft_freestack(a);
-	ft_freestack(b);
+	ft_freer(args);
+	free(nums);
 	return (0);
 }
 /*
