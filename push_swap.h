@@ -21,6 +21,7 @@ typedef struct s_stack
 	struct s_stack	*next;
 }	t_stack;
 
+long	ft_atol(const char *nptr);
 void	ft_freer(char **arr);
 void	ft_freestack(t_stack *head);
 t_stack	*ft_addval(int *num);

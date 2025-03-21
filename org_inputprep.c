@@ -61,22 +61,23 @@ int	*ft_check_args(char **args)
 {
 	size_t	size;
 	size_t	i;
-	int		*nums;
+	long	*nums;
 
 	size = ft_countargs(args);
-	nums = (int *)malloc(sizeof(int) * size);
+	nums = (long *)malloc(sizeof(long) * size);
 	i = 0;
 	while (i < size)
 	{
-		if (ft_strisnum(args[i]) == 0)
+		if (ft_strisnum(args[i]) == 0 || ft_strlen(args[i]) > 11
+			|| nums[i - 1] > 2147483647 || nums[i - 1] < -2147483648)
 		{
 			ft_printf("Error: Invalid input.\n");
 			ft_freer(args);
 			free(nums);
 			exit(1);
 		}
-		nums[i] = ft_atoi(args[i]);
+		nums[i] = ft_atol(args[i]);
 		i++;
 	}
-	return (nums);
+	return ((int *)nums);
 }
