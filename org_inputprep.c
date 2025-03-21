@@ -59,12 +59,12 @@ int	ft_dupedints(t_stack *a)
 
 int	*ft_check_args(char **args)
 {
-	size_t	size;
-	size_t	i;
-	long	*nums;
+	size_t		size;
+	size_t		i;
+	long long	*nums;
 
 	size = ft_countargs(args);
-	nums = (long *)malloc(sizeof(long) * size);
+	nums = (long long *)malloc(sizeof(long long) * size);
 	i = 0;
 	while (i < size)
 	{
