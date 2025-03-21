@@ -61,10 +61,10 @@ int	*ft_check_args(char **args)
 {
 	size_t		size;
 	size_t		i;
-	long long	*nums;
+	int			*nums;
 
 	size = ft_countargs(args);
-	nums = (long long *)malloc(sizeof(long long) * size);
+	nums = (int *)malloc(sizeof(int) * size);
 	i = 0;
 	while (i < size)
 	{
@@ -79,5 +79,5 @@ int	*ft_check_args(char **args)
 		nums[i] = ft_atol(args[i]);
 		i++;
 	}
-	return ((int *)nums);
+	return (nums);
 }
