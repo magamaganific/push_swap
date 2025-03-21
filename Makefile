@@ -27,6 +27,9 @@ $(NAME): $(OBJS) $(LIB_OBJS)
 $(LIB_OBJS):
 	@make -C $(LIB_DIR)
 
+norminette:
+	@norminette | grep "Error"
+
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 

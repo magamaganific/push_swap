@@ -12,8 +12,6 @@
 
 #include "push_swap.h"
 
-
-
 t_stack	*ft_addval(int *num)
 {
 	t_stack	*newval;
