@@ -12,20 +12,48 @@
 
 #include "push_swap.h"
 
-void	ft_1stsorter(t_stack **a, t_stack **b)
+void	*ft_lastval(t_stack **stk)
+{
+	t_stack	*head;
+
+	head = *stk;
+	while (head->next != NULL)
+		head = head->next;
+	return (head);
+}
+
+void	ft_headsmaller(t_stack **a, t_stack **b)
 {
 	t_stack	*ahead;
-	t_stack	*bhead;
-	t_stack	*anext;
-	t_stack	*bnext;
+	t_stack *anext;
 
 	ahead = *a;
-	bhead = *b;
+	if (ahead->next == NULL)
+		return ;
 	anext = ahead->next;
-	bnext = bhead->next;
-	while (ahead != NUlL)
+	if (*(ahead->val) > *(anext->val))
+		ft_rotate(a);
+}
+void	ft_headbigger(t_stack **a)
+{
+	t_stack	*ahead;
+	t_stack *anext;
+
+	ahead = *a;
+	if (ahead->next == NULL)
+		return ;
+	anext = ahead->next;
+	if (*(ahead->val) > *(anext->val))
+		ft_rotate(a);
+}
+
+void	ft_1stsorter(t_stack **a, t_stack **b)
+{
+	while (*a)
 	{
-		if (ahead->val < anext->val)
-			ft_push()
+		ft_headbigger(a);
+		ft_headsmaller(a, b);
+		ft_bottombigger(a, b);
+		ft_bottomsmaller(a, b);
 	}
 }

@@ -69,7 +69,7 @@ int	*ft_check_args(char **args)
 	while (i < size)
 	{
 		if (ft_strisnum(args[i]) == 0 || ft_strlen(args[i]) > 11
-			|| nums[i - 1] > 2147483647 || nums[i - 1] < -2147483648)
+			|| ft_atol(args[i]) > 2147483647 || ft_atol(args[i]) < -2147483648)
 		{
 			ft_printf("Error: Invalid input.\n");
 			ft_freer(args);

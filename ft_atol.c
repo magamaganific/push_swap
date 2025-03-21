@@ -36,6 +36,5 @@ long	ft_atol(const char *nptr)
 		nptr++;
 	}
 	num = num * sgn;
-	ft_printf("%d", num);
 	return (num);
 }

@@ -10,7 +10,7 @@ RM = rm -f
 SRCS = main.c utils.c org_frees.c\
 		org_inputprep.c org_moves.c\
 		org_push-swap.c org_rotations.c\
-		org_simplesorts.c ft_atol.c
+		org_simplesorts.c ft_atol.c org_k-sort.c
 OBJS = $(SRCS:.c=.o)
 LIB_OBJS = $(LIB_DIR)/*.o
 PTR_OBJS = $(PTF_DIR)/*.o
