@@ -12,16 +12,10 @@
 
 #include "push_swap.h"
 
-void	ft_moveadmin(int move, int who, t_stack **a, t_stack **b)
+void	ft_moveadmin(int move, t_stack **a, t_stack **b)
 {
-	if (move == 1)
-		ft_ssab(who, a, b);
-	else if (move == 2)
-		ft_pab(who, a, b);
-	else if (move == 3)
-		ft_r2ab(who, a, b);
-	else if (move == 4)
-		ft_r3ab(who, a, b);
+	if (move == 2)
+		ft_push(a, b);
 }
 
 void	ft_push_swap(t_stack **a, t_stack **b)

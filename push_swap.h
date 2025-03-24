@@ -15,6 +15,25 @@
 #include <stdlib.h>
 #include <limits.h>
 
+#ifndef PA
+# define PA 1
+int PA = 1;
+int PB = 2;
+int SA = 3;
+int SB = 4;
+int SS = 5;
+int RA = 6;
+int RB = 7;
+int RR = 8;
+int RRA = 9;
+int RRB = 10;
+int RRR = 11;
+
+int HEAD = 'h';
+int NEXT = 'n';
+int LAST = 'l';
+int SLAST = 's'; 
+
 typedef struct s_stack
 {
 	int				*val;
@@ -50,3 +69,4 @@ int		*ft_check_args(char **args);
 int		*ft_stackargs(char **args, t_stack **a);
 char	**ft_args_to_stack(int ac, char **av);
 void	ft_1stsorter(t_stack **a, t_stack **b);
+void	ft_moveadmin(int move, t_stack **a, t_stack **b);

@@ -12,6 +12,16 @@
 
 #include "push_swap.h"
 
+void	*ft_secondlastval(t_stack **stk)
+{
+	t_stack	*head;
+
+	head = *stk;
+	while (head->next != NULL)
+		head = head->next;
+	return (head);
+}
+
 void	*ft_lastval(t_stack **stk)
 {
 	t_stack	*head;
@@ -22,38 +32,72 @@ void	*ft_lastval(t_stack **stk)
 	return (head);
 }
 
-void	ft_headsmaller(t_stack **a, t_stack **b)
+int	ft_smallest(t_stack **stk)
 {
-	t_stack	*ahead;
-	t_stack *anext;
+	t_stack	*head;
+	t_stack	*next;
+	t_stack	*slast;
+	t_stack	*last;
 
-	ahead = *a;
-	if (ahead->next == NULL)
-		return ;
-	anext = ahead->next;
-	if (*(ahead->val) > *(anext->val))
-		ft_rotate(a);
+	if (!*stk || (*stk)->next == NULL)
+		return (0);
+	head = *stk;
+	next = head->next;
+	slast = ft_secondlastval(stk);
+	last = ft_lastval(stk);
+	if ((*head->val) < (*next->val) && (*head->val) < (*slast->val)
+		&& (*head->val) < (*last->val))
+		return (HEAD);
+	if ((*next->val) < (*head->val) && (*next->val) < (*slast->val)
+		&& (*next->val) < (*last->val))
+		return (NEXT);
+	if ((*slast->val) < (*head->val) && (*slast->val) < (*next->val)
+		&& (*slast->val) < (*last->val))
+		return (SLAST);
+	if ((*last->val) < (*head->val) && (*last->val) < (*slast->val)
+		&& (*last->val) < (*next->val))
+		return (LAST);
+	return (0);
 }
-void	ft_headbigger(t_stack **a)
-{
-	t_stack	*ahead;
-	t_stack *anext;
 
-	ahead = *a;
-	if (ahead->next == NULL)
-		return ;
-	anext = ahead->next;
-	if (*(ahead->val) > *(anext->val))
-		ft_rotate(a);
+int	*ft_smaller(t_stack **a)
+{
+	int	*moves;
+
+	if (!*a)
+		return (0);
+	moves = NULL;
+	if (ft_smallest(a) == HEAD)
+		return (&PB);
+	return (NULL);
+	// if (ft_smallest(a) == NEXT && ft_biggest(a) == HEAD)
+	// 	return (&RA, &PB);
 }
 
 void	ft_1stsorter(t_stack **a, t_stack **b)
 {
+	int	*moves;
+	int	i;
+
+	moves = NULL;
+	i = 0;
 	while (*a)
 	{
-		ft_headbigger(a);
-		ft_headsmaller(a, b);
-		ft_bottombigger(a, b);
-		ft_bottomsmaller(a, b);
+		if ((*a)->next == NULL)
+			ft_moveadmin(PB, a, b);
+		while (moves == NULL)
+		{
+			moves = ft_smaller(a);
+			//moves = ft_bigger(a, b);
+		}
+		while (moves[i] != 0)
+		{
+			ft_moveadmin(moves[i], a, b);
+			i++;
+		}
+		free(moves);
+		moves = NULL;
+		i = 0;
 	}
 }
+
