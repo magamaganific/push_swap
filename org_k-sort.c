@@ -32,6 +32,34 @@ void	*ft_lastval(t_stack **stk)
 	return (head);
 }
 
+int	ft_biggest(t_stack **stk)
+{
+	t_stack	*head;
+	t_stack	*next;
+	t_stack	*slast;
+	t_stack	*last;
+
+	if (!*stk || (*stk)->next == NULL)
+		return (0);
+	head = *stk;
+	next = head->next;
+	slast = ft_secondlastval(stk);
+	last = ft_lastval(stk);
+	if ((*head->val) > (*next->val) && (*head->val) > (*slast->val)
+		&& (*head->val) > (*last->val))
+		return (HEAD);
+	if ((*next->val) > (*head->val) && (*next->val) > (*slast->val)
+		&& (*next->val) > (*last->val))
+		return (NEXT);
+	if ((*slast->val) > (*head->val) && (*slast->val) > (*next->val)
+		&& (*slast->val) > (*last->val))
+		return (SLAST);
+	if ((*last->val) > (*head->val) && (*last->val) > (*slast->val)
+		&& (*last->val) > (*next->val))
+		return (LAST);
+	return (0);
+}
+
 int	ft_smallest(t_stack **stk)
 {
 	t_stack	*head;
@@ -60,6 +88,23 @@ int	ft_smallest(t_stack **stk)
 	return (0);
 }
 
+int	*ft_nextissmallest(int	biggest)
+{
+	int	*moves;
+
+	moves = NULL;
+	if (biggest == HEAD)
+	{
+		moves[0] = RA;
+		moves[1] = PB;
+	}
+	else if (biggest == LAST)
+	{
+		moves[0] = RA;
+		moves[1] = PB;
+	}
+}
+
 int	*ft_smaller(t_stack **a)
 {
 	int	*moves;
@@ -68,13 +113,10 @@ int	*ft_smaller(t_stack **a)
 		return (0);
 	moves = NULL;
 	if (ft_smallest(a) == HEAD)
-	{
 		moves[0] = PB;
-		return (moves);
-	}
-	return (NULL);
-	// if (ft_smallest(a) == NEXT && ft_biggest(a) == HEAD)
-	// 	return (&RA, &PB);
+	else if (ft_smallest(a) == NEXT && ft_biggest(a) == HEAD)
+		moves = ft_nextissmallest(ft_biggest(a));
+	return (moves);
 }
 
 void	ft_1stsorter(t_stack **a, t_stack **b)
