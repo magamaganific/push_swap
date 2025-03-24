@@ -17,22 +17,49 @@
 
 #ifndef PA
 # define PA 1
-int PA = 1;
-int PB = 2;
-int SA = 3;
-int SB = 4;
-int SS = 5;
-int RA = 6;
-int RB = 7;
-int RR = 8;
-int RRA = 9;
-int RRB = 10;
-int RRR = 11;
-
-int HEAD = 'h';
-int NEXT = 'n';
-int LAST = 'l';
-int SLAST = 's'; 
+#endif
+#ifndef PB
+# define PB 2
+#endif
+#ifndef SA
+# define SA 3
+#endif
+#ifndef SB
+# define SB 4
+#endif
+#ifndef SS
+# define SS 5
+#endif
+#ifndef RA
+# define RA 6
+#endif
+#ifndef RB
+# define RB 7
+#endif
+#ifndef RR
+# define RR 8
+#endif
+#ifndef RRA
+# define RRA 9
+#endif
+#ifndef RRB
+# define RRB 10
+#endif
+#ifndef RRR
+# define RRR 11
+#endif
+#ifndef HEAD
+# define HEAD 'h'
+#endif
+#ifndef NEXT
+# define NEXT 'n'
+#endif
+#ifndef SLAST
+# define SLAST 's'
+#endif
+#ifndef LAST
+# define LAST 'l'
+#endif
 
 typedef struct s_stack
 {

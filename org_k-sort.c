@@ -68,7 +68,10 @@ int	*ft_smaller(t_stack **a)
 		return (0);
 	moves = NULL;
 	if (ft_smallest(a) == HEAD)
-		return (&PB);
+	{
+		moves[0] = PB;
+		return (moves);
+	}
 	return (NULL);
 	// if (ft_smallest(a) == NEXT && ft_biggest(a) == HEAD)
 	// 	return (&RA, &PB);
