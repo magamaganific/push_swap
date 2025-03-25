@@ -99,7 +99,7 @@ int	main(int ac, char **av)
 	if (!ft_stkissorted(a))
 		ft_push_swap(&a, &b);
 	ft_freestack(a);
+	ft_freestack(b);
 	ft_freer(args);
-	free(nums);
-	return (0);
+	return (free(nums), 0);
 }
