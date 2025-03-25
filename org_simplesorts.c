@@ -39,8 +39,14 @@ void	ft_sort3(t_stack **a)
 	while (!ft_stkissorted(*a))
 	{
 		if (*(head->val) > *(next->val))
+		{
 			ft_swap(a);
+			ft_printf("sa\n");
+		}
 		else
+		{
 			ft_revrotate(*a);
+			ft_printf("rra\n");
+		}
 	}
 }

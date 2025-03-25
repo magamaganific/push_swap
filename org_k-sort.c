@@ -88,61 +88,96 @@ int	ft_smallest(t_stack **stk)
 	return (0);
 }
 
-int	*ft_nextissmallest(int	biggest)
+int	ft_nextbigger(t_stack **stk)
 {
-	int	*moves;
+	t_stack	*head;
+	t_stack	*next;
 
-	moves = NULL;
-	if (biggest == HEAD)
-	{
-		moves[0] = RA;
-		moves[1] = PB;
-	}
-	else if (biggest == LAST)
-	{
-		moves[0] = RA;
-		moves[1] = PB;
-	}
+	head = *stk;
+	next = head->next;
+	if (*(next->val) > *(head->val))
+		return (1);
+	return (0);
 }
 
-int	*ft_smaller(t_stack **a)
+int	ft_b_moves(t_stack **b)
 {
-	int	*moves;
+	if (ft_biggest(b) == NEXT)
+		return (SB);
+	if (ft_smallest(b) == HEAD)
+		return (RB);
+	if (ft_smallest(b) == NEXT)
+		return (RB);
+	if (ft_smallest(b) == SLAST)
+		return (RRB);
+	if (ft_biggest(b) == LAST)
+		return (RRB);
+	if (ft_biggest(b) == SLAST)
+		return (RRB);
+	return(0);
+}
 
-	if (!*a)
-		return (0);
-	moves = NULL;
+int	ft_a_moves(t_stack **a)
+{
 	if (ft_smallest(a) == HEAD)
-		moves[0] = PB;
-	else if (ft_smallest(a) == NEXT && ft_biggest(a) == HEAD)
-		moves = ft_nextissmallest(ft_biggest(a));
-	return (moves);
+		return (PB);
+	if (ft_smallest(a) == LAST)
+		return (RRA);
+	if (ft_smallest(a) == NEXT)
+		return (SA);
+	if (ft_smallest(a) == SLAST)
+		return (RRA);
+	if (ft_biggest(a) == HEAD)
+		return (SA);
+	if (ft_biggest(a) == LAST)
+		return (RA);
+	if (ft_biggest(a) == NEXT)
+		return (RRA);
+	if (ft_biggest(a) == SLAST)
+		return (RA);
+	return(0);
+}
+
+int	ft_hierarchy(int a, int b)
+{
+	if (a == SA && b == SB)
+		return (SS);
+	if (b == SB)
+		return (b);
+	if (a == PA)
+		return (a);
+	if (a == RA && b == RB)
+		return (RR);
+	if (a == RRA && b == RRB)
+		return (RRR);
+	if (b)
+		return (b);
+	return (a);
+}
+
+int	ft_bestmove(t_stack **a, t_stack **b)
+{
+	int	final;
+	int	move_a;
+	int	move_b;
+
+	move_a = ft_a_moves(a);
+	move_b = ft_b_moves(b);
+	final = ft_hierarchy(move_a, move_b);
+	return(final);
 }
 
 void	ft_1stsorter(t_stack **a, t_stack **b)
 {
-	int	*moves;
-	int	i;
+	int	move;
 
-	moves = NULL;
-	i = 0;
-	while (*a)
+	move = 0;
+	while (*a && !ft_stkissorted(*a))
 	{
-		if ((*a)->next == NULL)
-			ft_moveadmin(PB, a, b);
-		while (moves == NULL)
-		{
-			moves = ft_smaller(a);
-			//moves = ft_bigger(a, b);
-		}
-		while (moves[i] != 0)
-		{
-			ft_moveadmin(moves[i], a, b);
-			i++;
-		}
-		free(moves);
-		moves = NULL;
-		i = 0;
+		move = ft_bestmove(a, b);
+		if (move != 0)
+			ft_moveadmin(move, a, b);
+		move = 0;
 	}
 }
 

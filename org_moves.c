@@ -12,49 +12,76 @@
 
 #include "push_swap.h"
 
-void	ft_ssab(int move, t_stack **a, t_stack **b)
+void	ft_pab(int move, t_stack **a, t_stack **b)
 {
-	if (move == 1)
-		ft_swap(a);
-	else if (move == 2)
-		ft_swap(b);
-	else if (move == 3)
+	if (move == PA)
 	{
-		ft_swap(a);
-		ft_swap(b);
+		ft_push(b, a);
+		ft_printf("pa\n");
+	}
+	else if (move == PB)
+	{
+		ft_push(a, b);
+		ft_printf("pb\n");
 	}
 }
 
-void	ft_pab(int move, t_stack **a, t_stack **b)
+void	ft_ssab(int move, t_stack **a, t_stack **b)
 {
-	if (move == 1)
-		ft_push(b, a);
-	else if (move == 2)
-		ft_push(a, b);
+	if (move == SA)
+	{
+		ft_swap(a);
+		ft_printf("sa\n");
+	}
+	else if (move == SB)
+	{
+		ft_swap(b);
+		ft_printf("sb\n");
+	}
+	else if (move == SS)
+	{
+		ft_swap(a);
+		ft_swap(b);
+		ft_printf("ss\n");
+	}
 }
 
 void	ft_r2ab(int move, t_stack **a, t_stack **b)
 {
-	if (move == 1)
+	if (move == RA)
+	{
 		ft_rotate(*a);
-	else if (move == 2)
+		ft_printf("ra\n");
+	}
+	else if (move == RB)
+	{
 		ft_rotate(*b);
-	else if (move == 3)
+		ft_printf("rb\n");
+	}
+	else if (move == RR)
 	{
 		ft_rotate(*a);
 		ft_rotate(*b);
+		ft_printf("rr\n");
 	}
 }
 
 void	ft_r3ab(int move, t_stack **a, t_stack **b)
 {
-	if (move == 1)
+	if (move == RRA)
+	{
 		ft_revrotate(*a);
-	else if (move == 2)
+		ft_printf("rra\n");
+	}
+	else if (move == RRB)
+	{
 		ft_revrotate(*b);
-	else if (move == 4)
+		ft_printf("rrb\n");
+	}
+	else if (move == RRR)
 	{
 		ft_revrotate(*a);
 		ft_revrotate(*b);
+		ft_printf("rrr\n");
 	}
 }

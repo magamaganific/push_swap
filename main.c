@@ -14,8 +14,14 @@
 
 void	ft_moveadmin(int move, t_stack **a, t_stack **b)
 {
-	if (move == 2)
-		ft_push(a, b);
+	if (move == PA || move == PB)
+		ft_pab(move, a, b);
+	if (move == SA || move == SB || move == SS)
+		ft_ssab(move, a, b);
+	if (move == RA || move == RB || move == RR)
+		ft_r2ab(move, a, b);
+	if (move == RRA || move == RRB || move == RRR)
+		ft_r3ab(move, a, b);
 }
 
 void	ft_push_swap(t_stack **a, t_stack **b)
@@ -26,7 +32,8 @@ void	ft_push_swap(t_stack **a, t_stack **b)
 		ft_swap(a);
 	else if (ft_countnums(*a) == 3)
 		ft_sort3(a);
-	ft_1stsorter(a, b);
+	else
+		ft_1stsorter(a, b);
 	ft_printf("final stack:\n");
 	ft_printstack(*a);
 	ft_printstack(*b);
