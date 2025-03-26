@@ -32,7 +32,41 @@ void	*ft_lastval(t_stack **stk)
 	return (head);
 }
 
-int	ft_biggest(t_stack **stk)
+
+int	ft_minval(t_stack **a)
+{
+	t_stack	*point;
+	int		val;
+
+	val = *((*a)->val);
+	point = (*a)->next;
+	while (point)
+	{
+		if (val > *(point->val))
+			val = *(point->val);
+		point = point->next;
+	}
+	return (val);
+}
+
+int	ft_maxval(t_stack **a)
+{
+	t_stack	*point;
+	int		val;
+
+	val = *((*a)->val);
+	point = (*a)->next;
+	while (point)
+	{
+		if (val < *(point->val))
+			val = *(point->val);
+		point = point->next;
+	}
+	return (val);
+}
+
+
+int	ft_biggestav(t_stack **stk)
 {
 	t_stack	*head;
 	t_stack	*next;
@@ -45,22 +79,22 @@ int	ft_biggest(t_stack **stk)
 	next = head->next;
 	slast = ft_secondlastval(stk);
 	last = ft_lastval(stk);
-	if ((*head->val) > (*next->val) && (*head->val) > (*slast->val)
-		&& (*head->val) > (*last->val))
+	if (*(head->val) > *(next->val) && *(head->val) > *(slast->val)
+		&& *(head->val) > *(last->val))
 		return (HEAD);
-	if ((*next->val) > (*head->val) && (*next->val) > (*slast->val)
-		&& (*next->val) > (*last->val))
+	if (*(next->val) > *(head->val) && *(next->val) > *(slast->val)
+		&& *(next->val) > *(last->val))
 		return (NEXT);
-	if ((*slast->val) > (*head->val) && (*slast->val) > (*next->val)
-		&& (*slast->val) > (*last->val))
+	if (*(slast->val) > *(head->val) && *(slast->val) > *(next->val)
+		&& *(slast->val) > *(last->val))
 		return (SLAST);
-	if ((*last->val) > (*head->val) && (*last->val) > (*slast->val)
-		&& (*last->val) > (*next->val))
+	if (*(last->val) > *(head->val) && *(last->val) > *(slast->val)
+		&& *(last->val) > *(next->val))
 		return (LAST);
 	return (0);
 }
 
-int	ft_smallest(t_stack **stk)
+int	ft_smallestav(t_stack **stk)
 {
 	t_stack	*head;
 	t_stack	*next;
@@ -73,70 +107,134 @@ int	ft_smallest(t_stack **stk)
 	next = head->next;
 	slast = ft_secondlastval(stk);
 	last = ft_lastval(stk);
-	if ((*head->val) < (*next->val) && (*head->val) < (*slast->val)
-		&& (*head->val) < (*last->val))
+	if (*(head->val) < *(next->val) && *(head->val) < *(slast->val)
+		&& *(head->val) < *(last->val))
 		return (HEAD);
-	if ((*next->val) < (*head->val) && (*next->val) < (*slast->val)
-		&& (*next->val) < (*last->val))
+	if (*(next->val) < *(head->val) && *(next->val) < *(slast->val)
+		&& *(next->val) < *(last->val))
 		return (NEXT);
-	if ((*slast->val) < (*head->val) && (*slast->val) < (*next->val)
-		&& (*slast->val) < (*last->val))
+	if (*(slast->val) < *(head->val) && *(slast->val) < *(next->val)
+		&& *(slast->val) < *(last->val))
 		return (SLAST);
-	if ((*last->val) < (*head->val) && (*last->val) < (*slast->val)
-		&& (*last->val) < (*next->val))
+	if (*(last->val) < *(head->val) && *(last->val) < *(slast->val)
+		&& *(last->val) < *(next->val))
 		return (LAST);
 	return (0);
 }
 
-int	ft_nextbigger(t_stack **stk)
+int	ft_lastnum(t_stack	**stack)
 {
-	t_stack	*head;
-	t_stack	*next;
+	t_stack	*point;
+	int		num;
 
-	if (!*stk || !(*stk)->next)
-		return(0);
-	head = *stk;
-	next = head->next;
-	if (*(next->val) > *(head->val))
-		return (1);
+	point = ft_lastval(stack);
+	num = *(point->val);
+	return (num);
+}
+
+int	ft_nextnum(t_stack	**stack)
+{
+	t_stack	*point;
+	int		num;
+
+	point = (*stack)->next;
+	num = *(point->val);
+	return (num);
+}
+
+int	ft_firstnum(t_stack	**stack)
+{
+	t_stack	*point;
+	int		num;
+
+	point = *stack;
+	num = *(point->val);
+	return (num);
+}
+
+int	ft_b_moves2(t_stack **b, int min)
+{
+	ft_printf("\n\n biggest = %d\n\n", ft_biggestav(b));
+	if (ft_firstnum(b) == min && ft_countnums(*b) == 2)
+		return (SB);
+	if (ft_biggestav(b) == HEAD)
+		return (PA);
+	if (ft_biggestav(b) == LAST)
+		return (RRB);
+	if (ft_lastnum(b) == ft_firstnum(b))
+		return (PA);
 	return (0);
 }
 
-int	ft_b_moves(t_stack **b, t_stack **a, int a_move)
+int	ft_a_moves2(t_stack **a)
+{
+	if (!*a || !(*a)->next)
+		return (0);
+	if (ft_firstnum(a) > ft_nextnum(a))
+		return(SA);
+	return (0);
+}
+
+int	ft_hierarchy2(int a, int b)
+{
+	if (a)
+		return (a);
+	return (b);
+}
+
+int	ft_bestmove2(t_stack **a, t_stack **b, int min)
+{
+	int	final;
+	int	move_a;
+	int	move_b;
+
+	move_a = 0;
+	move_b = 0;
+	move_b = ft_b_moves2(b, min);
+	move_a = ft_a_moves2(a);
+	ft_printf("Moves-> a = %d, b = %d\n", move_a, move_b);
+	ft_printf("stacks-> a: ");
+	ft_printstack(*a);
+	ft_printf("	b: ");
+	ft_printstack(*b);
+	final = ft_hierarchy2(move_a, move_b);
+	return (final);
+}
+
+int	ft_b_moves(t_stack **b)
 {
 	if (!*b || !(*b)->next)
-		return(0);
-	if (a_move == PA)
+		return (0);
+	if (ft_biggestav(b) == HEAD)
 	{
-		if (ft_biggest(b) == HEAD)
-			if()
+		if (ft_countnums(*b) == 2)
+			return (SB);
+		return (RB);
 	}
-	return(0);
+	return (0);
 }
 
-int	ft_a_moves(t_stack **a)
+int	ft_a_moves(t_stack **a, int max)
 {
-	if (ft_smallest(a) == HEAD)
+	if (ft_firstnum(a) == max && ft_countnums(*a) == 2)
+		return (SA);
+	if (ft_smallestav(a) == HEAD)
 		return (PB);
-	if (ft_smallest(a) == LAST)
-		return (RRA);
-	if (ft_smallest(a) == NEXT)
+	if (ft_smallestav(a) == NEXT)
 		return (SA);
-	if (ft_smallest(a) == SLAST)
+	if (ft_smallestav(a) == LAST)
 		return (RRA);
-	if (ft_biggest(a) == HEAD)
-		return (SA);
-	if (ft_biggest(a) == LAST)
-		return (RA);
-	if (ft_biggest(a) == NEXT)
+	if (ft_smallestav(a) == SLAST)
 		return (RRA);
-	if (ft_biggest(a) == SLAST)
-		return (RA);
-	return(0);
+	if (ft_lastnum(a) == ft_firstnum(a))
+		return (PB);
+	return (0);
 }
 
 int	ft_hierarchy(int a, int b)
 {
+	if (a == PB && b == RB)
+		return (b);
 	if (a == SA && b == SB)
 		return (SS);
 	if (b == SB)
@@ -145,12 +243,12 @@ int	ft_hierarchy(int a, int b)
 		return (RR);
 	if (a == RRA && b == RRB)
 		return (RRR);
-	if (b)
-		return (b);
-	return (a);
+	if (a)
+		return (a);
+	return (b);
 }
 
-int	ft_bestmove(t_stack **a, t_stack **b)
+int	ft_bestmove(t_stack **a, t_stack **b, int max)
 {
 	int	final;
 	int	move_a;
@@ -158,25 +256,38 @@ int	ft_bestmove(t_stack **a, t_stack **b)
 
 	move_a = 0;
 	move_b = 0;
-	move_a = ft_a_moves(a);
-	move_b = ft_b_moves(b, a, move_a);
+	move_a = ft_a_moves(a, max);
+	move_b = ft_b_moves(b);
 	ft_printf("Moves-> a = %d, b = %d\n", move_a, move_b);
 	ft_printf("stacks-> a: ");
 	ft_printstack(*a);
 	ft_printf("	b: ");
 	ft_printstack(*b);
 	final = ft_hierarchy(move_a, move_b);
-	return(final);
+	return (final);
 }
 
-void	ft_1stsorter(t_stack **a, t_stack **b)
+void	ft_sorter(t_stack **a, t_stack **b)
 {
 	int	move;
+	int	max;
+	int	min;
 
+	max = ft_maxval(a);
+	min = ft_minval(a);
+	min = 0;
 	move = 0;
-	while (*a && !ft_stkissorted(*a))
+	while (*a)
 	{
-		move = ft_bestmove(a, b);
+		move = ft_bestmove(a, b, max);
+		if (move != 0)
+			ft_moveadmin(move, a, b);
+		move = 0;
+	}
+	ft_printf("\n2nd Sort: ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n");
+	while (*b)
+	{
+		move = ft_bestmove2(a, b, min);
 		if (move != 0)
 			ft_moveadmin(move, a, b);
 		move = 0;

@@ -33,7 +33,7 @@ void	ft_push_swap(t_stack **a, t_stack **b)
 	else if (ft_countnums(*a) == 3)
 		ft_sort3(a);
 	else
-		ft_1stsorter(a, b);
+		ft_sorter(a, b);
 	ft_printf("final stack:\n");
 	ft_printstack(*a);
 	ft_printstack(*b);

@@ -12,6 +12,23 @@
 
 #include "push_swap.h"
 
+int	ft_bissorted(t_stack *head)
+{
+	t_stack	*current;
+	t_stack	*prev;
+
+	current = head->next;
+	prev = head;
+	while (current != NULL)
+	{
+		if (*(prev->val) < *(current->val))
+			return (0);
+		prev = current;
+		current = current->next;
+	}
+	return (1);
+}
+
 int	ft_stkissorted(t_stack *head)
 {
 	t_stack	*current;
