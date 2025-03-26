@@ -12,20 +12,29 @@
 
 #include "push_swap.h"
 
-void	*ft_secondlastval(t_stack **stk)
+t_stack	*ft_secondlastval(t_stack **stk)
 {
 	t_stack	*head;
+	t_stack *next;
 
+	if (!*stk || (*stk)->next == NULL)
+		return (0);
 	head = *stk;
-	while (head->next != NULL)
+	next = head->next;
+	while (next->next != NULL)
+	{
 		head = head->next;
+		next = head->next;
+	}
 	return (head);
 }
 
-void	*ft_lastval(t_stack **stk)
+t_stack	*ft_lastval(t_stack **stk)
 {
 	t_stack	*head;
 
+	if (!*stk || (*stk)->next == NULL)
+		return (0);
 	head = *stk;
 	while (head->next != NULL)
 		head = head->next;
@@ -37,6 +46,8 @@ int	ft_slastnum(t_stack	**stack)
 	t_stack	*point;
 	int		num;
 
+	if (!*stack || (*stack)->next == NULL)
+		return (0);
 	point = ft_secondlastval(stack);
 	num = *(point->val);
 	return (num);
@@ -47,6 +58,8 @@ int	ft_lastnum(t_stack	**stack)
 	t_stack	*point;
 	int		num;
 
+	if (!*stack || (*stack)->next == NULL)
+		return (0);
 	point = ft_lastval(stack);
 	num = *(point->val);
 	return (num);
@@ -57,6 +70,8 @@ int	ft_nextnum(t_stack	**stack)
 	t_stack	*point;
 	int		num;
 
+	if (!*stack || (*stack)->next == NULL)
+		return (0);
 	point = (*stack)->next;
 	num = *(point->val);
 	return (num);
@@ -114,10 +129,11 @@ int	ft_biggestav(t_stack **stk)
 
 	if (!*stk || (*stk)->next == NULL)
 		return (0);
-	head = ft_lastnum(stk);
+	head = ft_firstnum(stk);
 	next = ft_nextnum(stk);
 	slast = ft_slastnum(stk);
 	last = ft_lastnum(stk);
+	ft_printf("vals-> head: %d, next: %d, slast: %d, last: %d\n", head, next, slast, last);
 	if (head > next && head > slast && head > last)
 		return (HEAD);
 	if (next > head && next > slast	&& next > last)
@@ -131,42 +147,42 @@ int	ft_biggestav(t_stack **stk)
 
 int	ft_smallestav(t_stack **stk)
 {
-	t_stack	*head;
-	t_stack	*next;
-	t_stack	*slast;
-	t_stack	*last;
+	int	head;
+	int	next;
+	int	slast;
+	int	last;
 
 	if (!*stk || (*stk)->next == NULL)
 		return (0);
-	head = *stk;
-	next = head->next;
-	slast = ft_secondlastval(stk);
-	last = ft_lastval(stk);
-	if (*(head->val) < *(next->val) && *(head->val) < *(slast->val)
-		&& *(head->val) < *(last->val))
+	head = ft_firstnum(stk);
+	next = ft_nextnum(stk);
+	slast = ft_slastnum(stk);
+	last = ft_lastnum(stk);
+	if (head < next && head < slast && head < last)
 		return (HEAD);
-	if (*(next->val) < *(head->val) && *(next->val) < *(slast->val)
-		&& *(next->val) < *(last->val))
+	if (next < head && next < slast	&& next < last)
 		return (NEXT);
-	if (*(slast->val) < *(head->val) && *(slast->val) < *(next->val)
-		&& *(slast->val) < *(last->val))
+	if (slast < head && slast < next && slast < last)
 		return (SLAST);
-	if (*(last->val) < *(head->val) && *(last->val) < *(slast->val)
-		&& *(last->val) < *(next->val))
+	if (last < head && last < slast	&& last < next)
 		return (LAST);
 	return (0);
+
 }
 
-int	ft_b_moves2(t_stack **b, int min)
+int	ft_b_moves2(t_stack **b, int min, int max)
 {
-	ft_printf("\n\n biggest = %c\n\n", ft_biggestav(b));
-	if (ft_firstnum(b) == min && ft_countnums(*b) == 2)
-		return (SB);
-	if (ft_biggestav(b) == HEAD)
+	if (ft_countnums(*b) == 2)
+	{
+		if (ft_firstnum(b) < ft_nextnum(b))
+			return(SB);
 		return (PA);
-	if (ft_biggestav(b) == LAST)
+	}
+	if (ft_biggestav(b) == HEAD || ft_firstnum(b) == max)
+		return (PA);
+	if (ft_biggestav(b) == LAST || ft_firstnum(b) == min)
 		return (RRB);
-	if (ft_lastnum(b) == ft_firstnum(b))
+	if (ft_countnums(*b))
 		return (PA);
 	return (0);
 }
@@ -175,8 +191,6 @@ int	ft_a_moves2(t_stack **a)
 {
 	if (!*a || !(*a)->next)
 		return (0);
-	if (ft_firstnum(a) > ft_nextnum(a))
-		return(SA);
 	return (0);
 }
 
@@ -187,7 +201,7 @@ int	ft_hierarchy2(int a, int b)
 	return (b);
 }
 
-int	ft_bestmove2(t_stack **a, t_stack **b, int min)
+int	ft_bestmove2(t_stack **a, t_stack **b, int min, int max)
 {
 	int	final;
 	int	move_a;
@@ -195,7 +209,7 @@ int	ft_bestmove2(t_stack **a, t_stack **b, int min)
 
 	move_a = 0;
 	move_b = 0;
-	move_b = ft_b_moves2(b, min);
+	move_b = ft_b_moves2(b, min, max);
 	move_a = ft_a_moves2(a);
 	ft_printf("Moves-> a = %d, b = %d\n", move_a, move_b);
 	ft_printf("stacks-> a: ");
@@ -223,6 +237,8 @@ int	ft_a_moves(t_stack **a, int max)
 {
 	if (ft_firstnum(a) == max && ft_countnums(*a) == 2)
 		return (SA);
+	if (ft_lastnum(a) == max && ft_countnums(*a) == 2)
+		return (PB);
 	if (ft_smallestav(a) == HEAD)
 		return (PB);
 	if (ft_smallestav(a) == NEXT)
@@ -231,7 +247,7 @@ int	ft_a_moves(t_stack **a, int max)
 		return (RRA);
 	if (ft_smallestav(a) == SLAST)
 		return (RRA);
-	if (ft_lastnum(a) == ft_firstnum(a))
+	if (ft_countnums(*a) == 1)
 		return (PB);
 	return (0);
 }
@@ -289,10 +305,10 @@ void	ft_sorter(t_stack **a, t_stack **b)
 			ft_moveadmin(move, a, b);
 		move = 0;
 	}
-	ft_printf("\n2nd Sort: ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n");
 	while (*b)
 	{
-		move = ft_bestmove2(a, b, min);
+		ft_printf("\n2nd Sort: ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n");
+		move = ft_bestmove2(a, b, min, max);
 		if (move != 0)
 			ft_moveadmin(move, a, b);
 		move = 0;
