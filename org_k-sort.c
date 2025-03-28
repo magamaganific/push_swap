@@ -146,6 +146,59 @@ int	ft_biggestav(t_stack **stk)
 	return (0);
 }
 
+int	ft_smallestav_val(t_stack **stk)
+{
+	int	head;
+	int	next;
+	int	slast;
+	int	last;
+
+	if (!*stk || (*stk)->next == NULL)
+		return (0);
+	head = ft_firstnum(stk);
+	next = ft_nextnum(stk);
+	slast = ft_slastnum(stk);
+	last = ft_lastnum(stk);
+	if (head < next && head < slast && head < last)
+		return (head);
+	if (next < head && next < slast && next < last)
+		return (next);
+	if (slast < head && slast < next && slast < last)
+		return (slast);
+	if (last < head && last < slast && last < next)
+		return (last);
+	if (slast == next)
+		return (next);
+	return (0);
+}
+
+
+int	ft_biggestav_val(t_stack **stk)
+{
+	int	head;
+	int	next;
+	int	slast;
+	int	last;
+
+	if (!*stk || (*stk)->next == NULL)
+		return (0);
+	head = ft_firstnum(stk);
+	next = ft_nextnum(stk);
+	slast = ft_slastnum(stk);
+	last = ft_lastnum(stk);
+	if (head > next && head > slast && head > last)
+		return (head);
+	if (next > head && next > slast && next > last)
+		return (next);
+	if (slast > head && slast > next && slast > last)
+		return (slast);
+	if (last > head && last > slast && last > next)
+		return (last);
+	if (slast == next)
+		return (next);
+	return (0);
+}
+
 int	ft_smallestav(t_stack **stk)
 {
 	int	head;
@@ -181,21 +234,23 @@ int	ft_b_moves2(t_stack **b, int min, int max)
 			return (SB);
 		return (PA);
 	}
-	if (ft_biggestav(b) == HEAD || ft_firstnum(b) == max)
+	if (ft_biggestav(b) == HEAD || ft_firstnum(b) == max || ft_countnums(*b) == 1)
 		return (PA);
-	if (ft_biggestav(b) == LAST || ft_firstnum(b) == min)
+	if (ft_biggestav(b) == NEXT || ft_firstnum(b) < ft_nextnum(b))
+		return (SB);
+	if (ft_biggestav(b) == LAST || ft_biggestav(b) == SLAST || ft_firstnum(b) == min)
 		return (RRB);
-	if (ft_countnums(*b))
-		return (PA);
 	return (0);
 }
 
-int	ft_a_moves2(t_stack **a, int min)
+int	ft_a_moves2(t_stack **a, t_stack **b, int min)
 {
 	if (!*a || !(*a)->next)
 		return (0);
-	if (ft_nextnum(a) == min || ft_nextnum(a) < ft_firstnum(a))
+	if (ft_nextnum(a) == min || ft_firstnum(a) > ft_nextnum(a))
 		return(SA);
+	if (ft_firstnum(a) < ft_firstnum(b))
+		return(PB);
 	return (0);
 }
 
@@ -215,7 +270,7 @@ int	ft_bestmove2(t_stack **a, t_stack **b, int min, int max)
 	move_a = 0;
 	move_b = 0;
 	move_b = ft_b_moves2(b, min, max);
-	move_a = ft_a_moves2(a, min);
+	move_a = ft_a_moves2(a, b, min);
 	// ft_printf("Moves-> a = %d, b = %d\n", move_a, move_b);
 	// ft_printf("stacks-> a: ");
 	// ft_printstack(*a);
@@ -225,17 +280,25 @@ int	ft_bestmove2(t_stack **a, t_stack **b, int min, int max)
 	return (final);
 }
 
-int	ft_b_moves(t_stack **b)
+int	ft_b_moves(t_stack **b, t_stack **a/*,int min*/)
 {
 	if (!*b || !(*b)->next)
 		return (0);
-	if (ft_biggestav(b) == HEAD)
+	if (ft_biggestav(b) == NEXT && ft_countnums(*b) > 2)
+		return (SB);
+	if (ft_smallestav_val(a) < ft_biggestav_val(b) && ft_countnums(*b) > 4)
 	{
-		if (ft_countnums(*b) == 2)
+		if (ft_biggestav(b) == LAST	&& ft_smallestav(a) == HEAD
+			&& ft_smallestav(b) != HEAD)
+			return(RRB);
+		if (ft_biggestav(b) == NEXT && ft_firstnum(b) < ft_lastnum(b)
+			&& ft_smallestav_val(a) > ft_nextnum(b))
 			return (SB);
-		return (RB);
+		return (0);
 	}
-	if (ft_firstnum(b) < ft_nextnum(b) && ft_countnums)
+	if ((ft_biggestav(b) == NEXT && ft_firstnum(b) > ft_lastnum(b))
+		|| ft_biggestav(b) == HEAD)
+		return (RB);
 	return (0);
 }
 
@@ -275,7 +338,7 @@ int	ft_hierarchy(int a, int b)
 	return (a);
 }
 
-int	ft_bestmove(t_stack **a, t_stack **b, int max)
+int	ft_bestmove(t_stack **a, t_stack **b, int max/*, int min*/)
 {
 	int	final;
 	int	move_a;
@@ -284,7 +347,7 @@ int	ft_bestmove(t_stack **a, t_stack **b, int max)
 	move_a = 0;
 	move_b = 0;
 	move_a = ft_a_moves(a, max);
-	move_b = ft_b_moves(b);
+	move_b = ft_b_moves(b, a/*, min*/);
 	// ft_printf("Moves-> a = %d, b = %d\n", move_a, move_b);
 	// ft_printf("stacks-> a: ");
 	// ft_printstack(*a);
@@ -306,7 +369,7 @@ void	ft_sorter(t_stack **a, t_stack **b)
 	move = 0;
 	while (*a)
 	{
-		move = ft_bestmove(a, b, max);
+		move = ft_bestmove(a, b, max/*, min*/);
 		if (move != 0)
 			ft_moveadmin(move, a, b);
 		move = 0;
