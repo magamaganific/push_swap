@@ -88,3 +88,29 @@ void	ft_sort4(t_stack **a, t_stack **b)
 	ft_moveadmin(RA, a, b);
 	return ;
 }
+
+void	ft_sort5(t_stack **a, t_stack **b)
+{
+	int	max;
+
+	max = ft_max_node(a);
+	if (max == 1)
+		ft_moveadmin(SA, a, b);
+	else if (max == 2)
+	{
+		ft_moveadmin(RA, a, b);
+		ft_moveadmin(RA, a, b);
+	}
+	else if (max == 3)
+	{
+		ft_moveadmin(RRA, a, b);
+		ft_moveadmin(RRA, a, b);
+	}
+	else if (max == 4)
+		ft_moveadmin(RRA, a, b);
+	ft_moveadmin(PB, a, b);
+	ft_sort4(a);
+	ft_moveadmin(PA, a, b);
+	ft_moveadmin(RA, a, b);
+	return ;
+}

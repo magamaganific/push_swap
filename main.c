@@ -93,6 +93,10 @@ static void	ft_push_swap(t_stack **a, t_stack **b, int *nums)
 		ft_swap(a);
 	else if (ft_countnums(*a) == 3)
 		ft_sort3(a);
+	else if (ft_countnums(*a) == 4)
+		ft_sort4(a, b);
+	else if (ft_countnums(*a) == 5)
+		ft_sort5(a, b);
 	else
 		ft_sorter(a, b);
 	// ft_printf("final stack:\n");
