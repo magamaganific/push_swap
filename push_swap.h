@@ -98,3 +98,4 @@ int		*ft_stackargs(char **args, t_stack **a);
 char	**ft_args_to_stack(int ac, char **av);
 void	ft_sorter(t_stack **a, t_stack **b);
 void	ft_moveadmin(int move, t_stack **a, t_stack **b);
+int		ft_max_node(t_stack **a);
