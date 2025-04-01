@@ -49,7 +49,7 @@ int	ft_slastnum(t_stack	**stack)
 	if (!*stack || (*stack)->next == NULL)
 		return (0);
 	point = ft_secondlastval(stack);
-	num = *(point->val);
+	num = point->val;
 	return (num);
 }
 
@@ -61,7 +61,7 @@ int	ft_lastnum(t_stack	**stack)
 	if (!*stack || (*stack)->next == NULL)
 		return (0);
 	point = ft_lastval(stack);
-	num = *(point->val);
+	num = point->val;
 	return (num);
 }
 int	ft_thirdnum(t_stack	**stack)
@@ -75,7 +75,7 @@ int	ft_thirdnum(t_stack	**stack)
 	if (point->next == NULL)
 		return (0);
 	point = point->next;
-	num = *(point->val);
+	num = point->val;
 	return (num);
 }
 int	ft_nextnum(t_stack	**stack)
@@ -86,7 +86,7 @@ int	ft_nextnum(t_stack	**stack)
 	if (!*stack || (*stack)->next == NULL)
 		return (0);
 	point = (*stack)->next;
-	num = *(point->val);
+	num = point->val;
 	return (num);
 }
 
@@ -96,7 +96,7 @@ int	ft_firstnum(t_stack	**stack)
 	int		num;
 
 	point = *stack;
-	num = *(point->val);
+	num = point->val;
 	return (num);
 }
 
@@ -105,12 +105,12 @@ int	ft_minval(t_stack **a)
 	t_stack	*point;
 	int		val;
 
-	val = *((*a)->val);
+	val = (*a)->val;
 	point = (*a)->next;
 	while (point)
 	{
-		if (val > *(point->val))
-			val = *(point->val);
+		if (val > point->val)
+			val = point->val;
 		point = point->next;
 	}
 	return (val);
@@ -121,12 +121,12 @@ int	ft_maxval(t_stack **a)
 	t_stack	*point;
 	int		val;
 
-	val = *((*a)->val);
+	val = (*a)->val;
 	point = (*a)->next;
 	while (point)
 	{
-		if (val < *(point->val))
-			val = *(point->val);
+		if (val < point->val)
+			val = point->val;
 		point = point->next;
 	}
 	return (val);

@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-t_stack	*ft_addval(int *num)
+t_stack	*ft_addval(int num)
 {
 	t_stack	*newval;
 
@@ -35,7 +35,7 @@ void	ft_addlast(t_stack **head, t_stack *newnum)
 	current->next = newnum;
 }
 
-void	ft_stacknum(t_stack **head, int *num)
+void	ft_stacknum(t_stack **head, int num)
 {
 	t_stack	*newnum;
 
@@ -53,7 +53,7 @@ void	ft_printstack(t_stack *head)
 	current = head;
 	while (current != NULL)
 	{
-		ft_printf("%d -> ", *(current->val));
+		ft_printf("%d -> ", (current->val));
 		current = current->next;
 	}
 	ft_printf("NULL\n");

@@ -21,7 +21,7 @@ int	ft_bissorted(t_stack *head)
 	prev = head;
 	while (current != NULL)
 	{
-		if (*(prev->val) < *(current->val))
+		if (prev->val < current->val)
 			return (0);
 		prev = current;
 		current = current->next;
@@ -38,7 +38,7 @@ int	ft_stkissorted(t_stack *head)
 	prev = head;
 	while (current != NULL)
 	{
-		if (*(prev->val) > *(current->val))
+		if (prev->val > current->val)
 			return (0);
 		prev = current;
 		current = current->next;
@@ -55,7 +55,7 @@ void	ft_sort3(t_stack **a)
 	next = head->next;
 	while (!ft_stkissorted(*a))
 	{
-		if (*(head->val) > *(next->val))
+		if (head->val > next->val)
 		{
 			ft_swap(a);
 			ft_printf("sa\n");

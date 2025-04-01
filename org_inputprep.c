@@ -48,7 +48,7 @@ int	ft_dupedints(t_stack *a)
 		check = num->next;
 		while (check != NULL)
 		{
-			if (*(num->val) == *(check->val))
+			if (num->val == check->val)
 				return (1);
 			check = check->next;
 		}

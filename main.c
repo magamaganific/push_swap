@@ -50,7 +50,7 @@ int	*ft_stackargs(char **args, t_stack **a)
 	i = 0;
 	while (i < size)
 	{
-		ft_stacknum(a, &nums[i]);
+		ft_stacknum(a, nums[i]);
 		i++;
 	}
 	if (ft_dupedints(*a) != 0)

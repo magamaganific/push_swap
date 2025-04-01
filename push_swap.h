@@ -63,17 +63,17 @@
 
 typedef struct s_stack
 {
-	int				*val;
+	int				val;
 	struct s_stack	*next;
 }	t_stack;
 
 long	ft_atol(const char *nptr);
 void	ft_freer(char **arr);
 void	ft_freestack(t_stack *head);
-t_stack	*ft_addval(int *num);
+t_stack	*ft_addval(int num);
 void	ft_addlast(t_stack **head, t_stack *newnum);
-void	ft_stacknum(t_stack **head, int *num);
-void	ft_stackfront(t_stack **head, int *num);
+void	ft_stacknum(t_stack **head, int num);
+void	ft_stackfront(t_stack **head, int num);
 void	ft_printstack(t_stack *head);
 void	ft_swap(t_stack **stck);
 size_t	ft_countnums(t_stack *head);

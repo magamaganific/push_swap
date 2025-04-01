@@ -38,7 +38,7 @@ int	*ft_savevals(t_stack *head, size_t size)
 	vals = (int *)malloc(sizeof(int) * size + 1);
 	while (i < size)
 	{
-		vals[i] = *(current->val);
+		vals[i] = current->val;
 		current = current->next;
 		i++;
 	}
@@ -54,7 +54,7 @@ void	ft_saverot(t_stack *head, int *vals, size_t size)
 	i = 0;
 	while (i < size)
 	{
-		*(current->val) = vals[i];
+		current->val = vals[i];
 		current = current->next;
 		i++;
 	}

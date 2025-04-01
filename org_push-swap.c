@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	ft_stackfront(t_stack **head, int *num)
+void	ft_stackfront(t_stack **head, int num)
 {
 	t_stack	*newnum;
 
@@ -40,7 +40,7 @@ void	ft_push(t_stack **src, t_stack **dst)
 
 void	ft_swap(t_stack **stck)
 {
-	int		*tmp;
+	int		tmp;
 	t_stack	*num1;
 	t_stack	*num2;
 
