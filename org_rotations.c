@@ -27,7 +27,7 @@ size_t	ft_countnums(t_stack *head)
 	return (size);
 }
 
-int	*ft_savevals(t_stack *head, size_t size)
+static int	*ft_savevals(t_stack *head, size_t size)
 {
 	t_stack	*current;
 	int		*vals;
@@ -45,7 +45,7 @@ int	*ft_savevals(t_stack *head, size_t size)
 	return (vals);
 }
 
-void	ft_saverot(t_stack *head, int *vals, size_t size)
+static void	ft_saverot(t_stack *head, int *vals, size_t size)
 {
 	t_stack	*current;
 	size_t	i;

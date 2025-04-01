@@ -83,8 +83,6 @@ void		ft_printstack(t_stack *head);
 
 void		ft_swap(t_stack **stck);
 size_t		ft_countnums(t_stack *head);
-int			*ft_savevals(t_stack *head, size_t size);
-void		ft_saverot(t_stack *head, int *vals, size_t size);
 void		ft_rotate(t_stack *head);
 void		ft_revrotate(t_stack *head);
 void		ft_push(t_stack **src, t_stack **dst);
@@ -100,6 +98,7 @@ void		ft_sort3(t_stack **a);
 void		ft_sort4(t_stack **a, t_stack **b);
 void		ft_sort5(t_stack **a, t_stack **b);
 
+void		ft_index(int size, t_stack	**a, int *nums);
 int			ft_strisnum(char *arg);
 size_t		ft_countargs(char **args);
 int			ft_dupedints(t_stack *a);
