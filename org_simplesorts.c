@@ -109,7 +109,7 @@ void	ft_sort5(t_stack **a, t_stack **b)
 	else if (max == 4)
 		ft_moveadmin(RRA, a, b);
 	ft_moveadmin(PB, a, b);
-	ft_sort4(a);
+	ft_sort4(a, b);
 	ft_moveadmin(PA, a, b);
 	ft_moveadmin(RA, a, b);
 	return ;

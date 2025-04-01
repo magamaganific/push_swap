@@ -30,12 +30,12 @@ static void	set_index(t_stack **a, int size, int *ordered)
 	t_stack	*tmp;
 
 	tmp = *a;
-	while (temp)
+	while (tmp)
 	{
 		i = 0;
 		while (i < size)
 		{
-			if (ordered == tmp->val)
+			if (ordered[i] == tmp->val)
 			{
 				tmp->val = i;
 				break ;
@@ -84,7 +84,7 @@ void	ft_index(int size, t_stack	**a, int *nums)
 	free(ordered);
 }
 
-static void	ft_push_swap(t_stack **a, t_stack **b, int *nums)
+void	ft_push_swap(t_stack **a, t_stack **b, int *nums)
 {
 	// ft_printf("initial stack:\n");
 	// ft_printstack(*a);
@@ -166,5 +166,5 @@ int	main(int ac, char **av)
 	ft_freestack(a);
 	ft_freestack(b);
 	ft_freer(args);
-	return (free(nums), 0);
+	return (0);
 }
