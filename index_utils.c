@@ -29,7 +29,7 @@ int	ft_pos_id(t_stack *head, int pos)
 
 static void	set_index(t_stack **a, int size, int *ordered)
 {
-	int			i;
+	int		i;
 	t_stack	*tmp;
 
 	tmp = *a;

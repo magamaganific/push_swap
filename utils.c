@@ -80,5 +80,5 @@ int	ft_max_node(t_stack **a)
 		tmp = tmp->next;
 		i++;
 	}
-	return(res);
+	return (res);
 }

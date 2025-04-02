@@ -21,10 +21,10 @@ int	raiz_cuadrada(int nbr)
 	i = 1;
 	while (i * i <= nbr)
 		i++;
-	return(i - 1);
+	return (i - 1);
 }
 
-static void ft_firstsort_pb(t_stack **a, t_stack **b, int *a_s, int *b_s)
+static void	ft_firstsort_pb(t_stack **a, t_stack **b, int *a_s, int *b_s)
 {
 	int	range;
 
@@ -54,7 +54,7 @@ static void ft_firstsort_pb(t_stack **a, t_stack **b, int *a_s, int *b_s)
 
 static void	ft_secondsort_pa(t_stack **a, t_stack **b, int *a_s, int *b_s)
 {
-	while (*a_s > 0)
+	while (*b_s > 0)
 	{
 		while ((*b)->val != *b_s - 1)
 		{
