@@ -12,6 +12,20 @@
 
 #include "push_swap.h"
 
+int	ft_pos_id(t_stack *head, int pos)
+{
+	int	i;
+
+	i = 0;
+	while (head)
+	{
+		if (head->val == pos)
+			return (i);
+		head = head -> next;
+		i++;
+	}
+	return (i);
+}
 
 static void	set_index(t_stack **a, int size, int *ordered)
 {

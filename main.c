@@ -26,8 +26,8 @@ void	ft_moveadmin(int move, t_stack **a, t_stack **b)
 
 void	ft_push_swap(t_stack **a, t_stack **b, int *nums)
 {
-	// ft_printf("initial stack:\n");
-	// ft_printstack(*a);
+	ft_printf("initial stack:\n");
+	ft_printstack(*a);
 	ft_index(ft_countnums(*a), a, nums);
 	if (ft_countnums(*a) == 2)
 		ft_swap(a);
@@ -38,10 +38,10 @@ void	ft_push_swap(t_stack **a, t_stack **b, int *nums)
 	else if (ft_countnums(*a) == 5)
 		ft_sort5(a, b);
 	else
-		ft_ksort(a, b);
-	// ft_printf("final stack:\n");
-	// ft_printstack(*a);
-	// ft_printstack(*b);
+		k_sort(a, b);
+	ft_printf("final stack:\n");
+	ft_printstack(*a);
+	ft_printstack(*b);
 }
 
 int	*ft_stackargs(char **args, t_stack **a)
