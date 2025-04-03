@@ -70,47 +70,45 @@ void	ft_sort3(t_stack **a)
 
 void	ft_sort4(t_stack **a, t_stack **b)
 {
-	int	max;
+	int	min;
 
-	max = ft_max_node(a);
-	if (max == 1)
+	min = ft_min_node(a);
+	if (min == 1)
 		ft_moveadmin(SA, a, b);
-	else if (max == 2)
+	else if (min == 2)
 	{
 		ft_moveadmin(RRA, a, b);
 		ft_moveadmin(RRA, a, b);
 	}
-	else if (max == 3)
+	else if (min == 3)
 		ft_moveadmin(RRA, a, b);
 	ft_moveadmin(PB, a, b);
 	ft_sort3(a);
 	ft_moveadmin(PA, a, b);
-	ft_moveadmin(RA, a, b);
 	return ;
 }
 
 void	ft_sort5(t_stack **a, t_stack **b)
 {
-	int	max;
+	int	min;
 
-	max = ft_max_node(a);
-	if (max == 1)
+	min = ft_min_node(a);
+	if (min == 1)
 		ft_moveadmin(SA, a, b);
-	else if (max == 2)
+	else if (min == 2)
 	{
 		ft_moveadmin(RA, a, b);
 		ft_moveadmin(RA, a, b);
 	}
-	else if (max == 3)
+	else if (min == 3)
 	{
 		ft_moveadmin(RRA, a, b);
 		ft_moveadmin(RRA, a, b);
 	}
-	else if (max == 4)
+	else if (min == 4)
 		ft_moveadmin(RRA, a, b);
 	ft_moveadmin(PB, a, b);
 	ft_sort4(a, b);
 	ft_moveadmin(PA, a, b);
-	ft_moveadmin(RA, a, b);
 	return ;
 }

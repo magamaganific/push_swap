@@ -92,7 +92,6 @@ void		ft_r2ab(int move, t_stack **a, t_stack **b);
 void		ft_r3ab(int move, t_stack **a, t_stack **b);
 
 int			ft_stkissorted(t_stack *head);
-int			ft_bissorted(t_stack *head);
 
 void		ft_sort3(t_stack **a);
 void		ft_sort4(t_stack **a, t_stack **b);
@@ -100,15 +99,16 @@ void		ft_sort5(t_stack **a, t_stack **b);
 
 void		ft_index(int size, t_stack	**a, int *nums);
 int			ft_strisnum(char *arg);
+size_t		ft_true_input_count(char **input);
 size_t		ft_countargs(char **args);
 int			ft_dupedints(t_stack *a);
 int			*ft_check_args(char **args);
 int			*ft_stackargs(char **args, t_stack **a);
-char		**ft_args_to_stack(int ac, char **av);
+char		**ft_args_to_stack(char **av);
 void		ft_sorter(t_stack **a, t_stack **b);
 void		k_sort(t_stack **a, t_stack **b);
 int			ft_pos_id(t_stack *head, int pos);
 void		ft_moveadmin(int move, t_stack **a, t_stack **b);
-int			ft_max_node(t_stack **a);
+int			ft_min_node(t_stack **a);
 
 #endif

@@ -9,31 +9,42 @@
 /*   Updated: 2025/03/19 13:25:07 by mfornovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+/*printf("dentro del while ft_str_is_num: %c\n", arg[i]);*/
 #include "push_swap.h"
 
-int	ft_strisnum(char *arg)
+#define NO 0
+#define YES 1
+
+int	ft_str_is_num(char *arg)
 {
 	int	i;
 
 	i = 0;
 	while (arg[i])
 	{
+		if (arg[i] == '-' || arg[i] == '+')
+			i++;
 		if (ft_isdigit(arg[i]) == 0)
-			return (0);
+			return (NO);
 		i++;
 	}
-	return (1);
+	return (YES);
 }
 
 size_t	ft_countargs(char **args)
 {
 	size_t	i;
+	size_t	les;
 
 	i = 0;
+	les = 0;
 	while (args[i])
+	{
+		if (ft_strlen(args[i]) == 0)
+			les++;
 		i++;
-	return (i);
+	}
+	return (i - les);
 }
 
 int	ft_dupedints(t_stack *a)
@@ -49,12 +60,12 @@ int	ft_dupedints(t_stack *a)
 		while (check != NULL)
 		{
 			if (num->val == check->val)
-				return (1);
+				return (YES);
 			check = check->next;
 		}
 		num = num->next;
 	}
-	return (0);
+	return (NO);
 }
 
 int	*ft_check_args(char **args)
@@ -68,7 +79,7 @@ int	*ft_check_args(char **args)
 	i = 0;
 	while (i < size)
 	{
-		if (ft_strisnum(args[i]) == 0 || ft_strlen(args[i]) > 11
+		if (ft_str_is_num(args[i]) == NO || ft_strlen(args[i]) > 11
 			|| ft_atol(args[i]) > 2147483647 || ft_atol(args[i]) < -2147483648)
 		{
 			ft_printf("Error: Invalid input.\n");
@@ -80,4 +91,23 @@ int	*ft_check_args(char **args)
 		i++;
 	}
 	return (nums);
+}
+
+size_t	ft_true_input_count(char **input)
+{
+	char	**ns;
+	size_t	cuan;
+	int		i;
+
+	i = 0;
+	cuan = 0;
+	ns = NULL;
+	while (input[i])
+	{
+		ns = ft_split(input[i], ' ');
+		cuan += ft_countargs(ns);
+		ft_freer(ns);
+		i++;
+	}
+	return (cuan);
 }

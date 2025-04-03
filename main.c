@@ -9,7 +9,8 @@
 /*   Updated: 2025/03/19 13:14:32 by mfornovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+/* ARG=$(seq -1000 1000 | sort -R | tail -n 500 | tr '\n' ' ');
+ ./push_swap $ARG | ./checker_linux $ARG*/
 #include "push_swap.h"
 
 void	ft_moveadmin(int move, t_stack **a, t_stack **b)
@@ -26,9 +27,13 @@ void	ft_moveadmin(int move, t_stack **a, t_stack **b)
 
 void	ft_push_swap(t_stack **a, t_stack **b, int *nums)
 {
+	ft_printf("stack: ");
+	ft_printstack(*a);
 	ft_index(ft_countnums(*a), a, nums);
+	ft_printf("indexed stack: ");
+	ft_printstack(*a);
 	if (ft_countnums(*a) == 2)
-		ft_swap(a);
+		ft_moveadmin(SA, a, b);
 	else if (ft_countnums(*a) == 3)
 		ft_sort3(a);
 	else if (ft_countnums(*a) == 4)
@@ -37,6 +42,9 @@ void	ft_push_swap(t_stack **a, t_stack **b, int *nums)
 		ft_sort5(a, b);
 	else
 		k_sort(a, b);
+	ft_printf("sorted stack index: ");
+	ft_printstack(*a);
+	ft_freestack(*b);
 }
 
 int	*ft_stackargs(char **args, t_stack **a)
@@ -64,14 +72,31 @@ int	*ft_stackargs(char **args, t_stack **a)
 	return (nums);
 }
 
-char	**ft_args_to_stack(int ac, char **av)
+char	**ft_args_to_stack(char **input)
 {
 	char	**args;
+	char	**ns;
+	int		n;
+	int		i;
 
-	args = (char **)malloc(sizeof(char *) * ac);
-	args[ac-- - 1] = 0;
-	while (ac--)
-		args[ac] = ft_strdup(av[ac + 1]);
+	i = 0;
+	n = 0;
+	ns = NULL;
+	args = (char **)ft_calloc(sizeof(char *), ft_true_input_count(input) + 1);
+	args[ft_true_input_count(input) - 1] = 0;
+	while (*input)
+	{
+		n = 0;
+		ns = ft_split(*input, ' ');
+		while (ns[n])
+		{
+			args[i] = ft_strdup(ns[n]);
+			n++;
+			i++;
+		}
+		ft_freer(ns);
+		input++;
+	}
 	return (args);
 }
 
@@ -84,22 +109,14 @@ int	main(int ac, char **av)
 
 	a = NULL;
 	b = NULL;
-	if (ac == 1)
+	if (ac == 1 || ft_strlen(av[1]) == 0)
 		exit(1);
-	if (ac == 2)
-	{
-		if (ft_strlen(av[1]))
-			args = ft_split(av[1], ' ');
-		else
-			return (ft_putstr_fd("Error\n", 2), 1);
-	}
-	else
-		args = ft_args_to_stack(ac, av);
+	args = ft_args_to_stack(av + 1);
 	nums = ft_stackargs(args, &a);
 	if (!ft_stkissorted(a))
 		ft_push_swap(&a, &b, nums);
 	ft_freestack(a);
-	ft_freestack(b);
 	ft_freer(args);
+	free(nums);
 	return (0);
 }

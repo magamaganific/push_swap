@@ -59,22 +59,22 @@ void	ft_printstack(t_stack *head)
 	ft_printf("NULL\n");
 }
 
-int	ft_max_node(t_stack **a)
+int	ft_min_node(t_stack **a)
 {
 	t_stack	*tmp;
-	int		max;
+	int		min;
 	int		i;
 	int		res;
 
 	i = 0;
 	tmp = *a;
-	max = tmp->val;
+	min = tmp->val;
 	res = 0;
 	while (tmp)
 	{
-		if (tmp->val > max)
+		if (tmp->val < min)
 		{
-			max = tmp->val;
+			min = tmp->val;
 			res = i;
 		}
 		tmp = tmp->next;

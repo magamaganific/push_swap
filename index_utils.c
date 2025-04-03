@@ -84,5 +84,4 @@ void	ft_index(int size, t_stack	**a, int *nums)
 
 	ordered = b_sort(nums, size);
 	set_index(a, size, ordered);
-	free(ordered);
 }
